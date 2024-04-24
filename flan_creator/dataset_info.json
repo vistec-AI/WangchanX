@@ -1,0 +1,294 @@
+{
+  "ultrachat": {
+    "template": null,
+    "source": { "path": "HuggingFaceH4/ultrachat_200k", "split": "train_sft" },
+    "task": "text-generation",
+    "license": "mit",
+    "domain": "mixed",
+    "processor": "Ultrachat200k",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "han": {
+    "template": "han",
+    "source": { "path": "pythainlp/han-instruct-dataset-v2.0" },
+    "task": "text-generation",
+    "license": "cc-by-sa-4.0",
+    "domain": "mixed",
+    "processor": "Han",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "iapp_wiki_qa_squad": {
+    "template": "iapp_wiki_qa_squad",
+    "source": { "path": "Rasu23/iapp_wiki_qa_squad_cleaned" },
+    "task": "question-answering",
+    "license": "mit",
+    "domain": "web-content",
+    "processor": "IApp",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "math_50k": {
+    "template": "math_50k",
+    "source": {
+      "path": "https://github.com/AGI-Edgerunners/LLM-Adapters/raw/main/ft-training_set/math_50k.json"
+    },
+    "task": "text-generation",
+    "license": "apache-license-2.0",
+    "domain": "mixed",
+    "processor": "Math50k",
+    "num_examples": "all",
+    "file_format": "json"
+  },
+  "commonsense_170k": {
+    "template": "commonsense_170k",
+    "source": {
+      "path": "https://github.com/AGI-Edgerunners/LLM-Adapters/raw/main/ft-training_set/commonsense_170k.json"
+    },
+    "task": "text-generation",
+    "license": "apache-license-2.0",
+    "domain": "mixed",
+    "processor": "CommonSense170k",
+    "num_examples": "all",
+    "file_format": "json"
+  },
+  "wangchanglm": {
+    "template": "dataset_wangchanglm",
+    "source": { "path": "pythainlp/final_training_set_v1" },
+    "task": "text-generation",
+    "license": ["apache-license-2.0", "mit", "cc-by-sa-4.0"],
+    "domain": "mixed",
+    "processor": "WangchanGLM",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "tiny_code": {
+    "template": "tiny_code",
+    "source": { "path": "nampdn-ai/tiny-codes" },
+    "task": "text-generation",
+    "license": "mit",
+    "domain": "mixed",
+    "processor": "TinyCodes",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "flan_v2": {
+    "template": "flan_v2",
+    "source": { "path": "Chalermpun/flanV2" },
+    "task": "text-generation",
+    "license": "apache-license-2.0",
+    "domain": "mixed",
+    "processor": "FlanV2",
+    "num_examples": 100000,
+    "file_format": "huggingface"
+  },
+  "cot_v2": {
+    "template": "flan_v2",
+    "source": { "path": "Chalermpun/cotV2" },
+    "task": "text-generation",
+    "license": "apache-license-2.0",
+    "domain": "mixed",
+    "processor": "CotV2",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "alt": {
+    "template": "scb_mt_en_th",
+    "source": { "path": "mutiyama/alt", "name": "alt-parallel" },
+    "task": "translation",
+    "license": "cc-by-4.0",
+    "domain": "mixed",
+    "processor": "Alt",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "thaisum": {
+    "template": "thaisum",
+    "source": { "path": "pythainlp/thaisum" },
+    "task": "summarization",
+    "license": "mit",
+    "domain": "news",
+    "processor": "ThaiSum",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "scb_enth": {
+    "template": "scb_mt_en_th",
+    "source": { "path": "airesearch/scb_mt_enth_2020", "name": "enth" },
+    "task": "translation",
+    "license": "cc-by-sa-4.0",
+    "domain": "mixed",
+    "processor": "SCBEnTh",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "xp3x": {
+    "template": "xp3x_enth",
+    "source": { "path": "Chalermpun/xp3x" },
+    "task": "other",
+    "license": "apache-license-2.0",
+    "domain": "mixed",
+    "processor": "Xp3x",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "platypus": {
+    "template": "platypus",
+    "source": { "path": "garage-bAInd/Open-Platypus" },
+    "task": "other",
+    "license": ["apache-license-2.0", "mit", "cc-by-4.0"],
+    "domain": "mixed",
+    "processor": "Platypus",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "wisesight_sentiment": {
+    "template": "wisesight_sentiment",
+    "source": { "path": "pythainlp/wisesight_sentiment" },
+    "task": "text-classification",
+    "license": "cc0-1.0",
+    "domain": "social-media",
+    "processor": "WiseSightSentiment",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "thai_food": {
+    "template": "thai_food",
+    "source": { "path": "pythainlp/thai_food_v1.0" },
+    "task": "text-generation",
+    "license": "cc0-1.0",
+    "domain": "book",
+    "processor": "ThaiFood",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "thai_wiki_dataset_v3": {
+    "template": "thai_wiki_dataset_v3",
+    "source": { "path": "pythainlp/thai-wiki-dataset-v3" },
+    "task": "text-generation",
+    "license": "cc-by-sa-3.0",
+    "domain": "web-content",
+    "processor": "ThaiWiki",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "klongklon": {
+    "template": "klongklon",
+    "source": { "path": "pythainlp/klongklon" },
+    "task": "text-generation",
+    "license": "mit",
+    "domain": "book",
+    "processor": "KlongKlon",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "thai_usembassy": {
+    "template": "thai_usembassy",
+    "source": { "path": "pythainlp/thai_usembassy" },
+    "task": "translation",
+    "license": "cc0-1.0",
+    "domain": "news",
+    "processor": "ThaiUSEmbassy",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "wongnai_reviews": {
+    "template": "wongnai_reviews",
+    "source": { "path": "Wongnai/wongnai_reviews" },
+    "task": "text-classification",
+    "license": "lgpl-3.0",
+    "domain": "social-media",
+    "processor": "WongnaiSentiment",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "tacas61": {
+    "template": "thai_sentiment_analysis_dataset",
+    "source": {
+      "path": "https://github.com/PyThaiNLP/thai-sentiment-analysis-dataset/raw/master/tcas61.csv",
+      "sep": "\t",
+      "names": ["text", "answer"]
+    },
+    "task": "text-classification",
+    "license": "cc-by-4.0",
+    "domain": "social-media",
+    "processor": "ThaiSentimentAnalysis",
+    "num_examples": "all",
+    "file_format": "csv"
+  },
+  "review_shopping": {
+    "template": "thai_sentiment_analysis_dataset",
+    "source": {
+      "path": "https://github.com/PyThaiNLP/thai-sentiment-analysis-dataset/raw/master/review_shopping.csv",
+      "sep": "\t",
+      "names": ["text", "answer"]
+    },
+    "task": "text-classification",
+    "license": "cc-by-4.0",
+    "domain": "social-media",
+    "processor": "ThaiSentimentAnalysis",
+    "num_examples": "all",
+    "file_format": "csv"
+  },
+  "general_amy": {
+    "template": "thai_sentiment_analysis_dataset",
+    "source": {
+      "path": "https://github.com/PyThaiNLP/thai-sentiment-analysis-dataset/raw/master/general-amy.csv",
+      "sep": "\t",
+      "names": ["text", "answer"]
+    },
+    "task": "text-classification",
+    "license": "cc-by-4.0",
+    "domain": "social-media",
+    "processor": "ThaiSentimentAnalysis",
+    "num_examples": "all",
+    "file_format": "csv"
+  },
+  "thai_english_transliteration_dictionary": {
+    "template": "thai_english_transliteration_dictionary",
+    "source": {
+      "path": "https://github.com/wannaphong/thai-english-transliteration-dictionary/raw/main/dict.tsv",
+      "sep": "\t"
+    },
+    "task": "translation",
+    "license": "cc-by-4.0",
+    "domain": "book",
+    "processor": "ThaiEnglishTransliterationDictionary",
+    "num_examples": "all",
+    "file_format": "csv"
+  },
+  "prd_news_30112023": {
+    "template": "prd_news_30112023",
+    "source": { "path": "pythainlp/prd_news_30112023" },
+    "task": "text-generation",
+    "license": "cc0-1.0",
+    "domain": "news",
+    "processor": "PRDNews",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "aya_dataset": {
+    "template": "aya_dataset",
+    "source": { "path": "CohereForAI/aya_collection", "name": "aya_dataset" },
+    "task": "text-generation",
+    "license": "apache-license-2.0",
+    "domain": "mixed",
+    "processor": "Aya",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
+  "aya_collection_templated_xlel_wd": {
+    "template": "aya_collection_templated_xlel_wd",
+    "source": {
+      "path": "CohereForAI/aya_collection",
+      "name": "templated_xlel_wd"
+    },
+    "task": "text-generation",
+    "license": "apache-license-2.0",
+    "domain": "mixed",
+    "processor": "AyaXlelWd",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  }
+}
