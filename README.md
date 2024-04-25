@@ -105,3 +105,6 @@ Here are some future plans and what we are doing:
 
 ## License
 ..
+
+## Citation
+....
