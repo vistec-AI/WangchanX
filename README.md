@@ -109,4 +109,14 @@ Here are some future plans and what we are doing:
 ..
 
 ## Citation
-....
+If you use WangchanX or WangchanX Eval in your project or publication, please cite the library as follows
+
+```tex
+@misc{phatthiyaphaibun2024wangchanlion,
+      title={WangchanLion and WangchanX MRC Eval}, 
+      author={Wannaphong Phatthiyaphaibun and Surapon Nonesung and Patomporn Payoungkhamdee and Peerat Limkonchotiwat and Can Udomcharoenchaikit and Jitkapat Sawatphol and Chompakorn Chaksangchaichot and Ekapol Chuangsuwanich and Sarana Nutanong},
+      year={2024},
+      eprint={2403.16127},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
