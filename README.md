@@ -96,6 +96,12 @@ Please note that the provided examples are all LLaMa3. Our pipeline supports mor
 - SeaLLMs
 - PolyLM
 
+## Inference Example
+Inference Example:
+```python
+print("")
+```
+
 ## Evaluation
 
 -- table --
