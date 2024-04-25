@@ -6,7 +6,7 @@ Currently, our project supports 4 base LLMs, such as LLaMa3, SeaLion, SeaLLMs, a
 
 ## Released Models
 We apply our fine-tuning pipeline to various open-source models and publish their weights as follows:
-- [LLaMa3-8b-WangchanX-sft-vXX](https://huggingface.co/airesearch)
+- [LLaMa3-8b-WangchanX-sft-vXX]()
 - [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)
 - [SeaLLMs-WangchanX-sft]()
 - [PolyLM-WangchanX-sft]()
@@ -96,7 +96,8 @@ Coming Soon.
 
 ## Acknowledgements
 
-We would like to thank all codes from XXXX. This project is sponsored by VISTEC, PTT, SCBX, and SCB. 
+We would like to thank all codes and structures from [alignment-handbook](https://github.com/huggingface/alignment-handbook). 
+This project is sponsored by VISTEC, PTT, SCBX, and SCB. 
 
 ## Future Plans
 Here are some future plans and what we are doing:
