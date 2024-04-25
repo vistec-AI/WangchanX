@@ -6,10 +6,21 @@ Currently, our project supports 4 base LLMs, such as LLaMa3, SeaLion, SeaLLMs, a
 
 ## Released Models
 We apply our fine-tuning pipeline to various open-source models and publish their weights as follows:
+
+### Demo models
+The models that trained on small instruction datasets
+- [LLaMa3-8b-WangchanX-sft-vXX-Demo]()
+- [SeaLion-7b-WangchanX-sft-Demo]()
+- [SeaLLMs-WangchanX-sft-Demo]()
+- [PolyLM-WangchanX-sft-Demo]()
+
+### Full models
+The models that trained on large instruction datasets (>400 GB of data)
 - [LLaMa3-8b-WangchanX-sft-vXX]()
 - [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)
 - [SeaLLMs-WangchanX-sft]()
 - [PolyLM-WangchanX-sft]()
+
 
 ## Released Dataset
 For reproducibility, we provide the scripts for dataset collection and preprocessing in /datasets path ...
