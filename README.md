@@ -4,7 +4,7 @@ This repository contains fine-tuning scripts for both supervised fine-tuning (SF
 ## Released Models
 We apply our fine-tuning pipeline to various open-source models and publish their weights as follows:
 - [LLaMa3-8b-WangchanX-sft-vXX](https://huggingface.co/airesearch)
-- [SeaLion-7b-WangchanX-sft]([https://huggingface.co/airesearch](https://huggingface.co/airesearch/WangchanLion7B))
+- [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)
 - ...
 
 ## Released Dataset
