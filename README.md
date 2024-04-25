@@ -33,7 +33,7 @@ The main parameters are
 
 ### QLoRa fine-tuning example
 
-The simplest way to start fine-tune your LLM is to use a plain Python on a single GPU. You can do the supervised fine-tuning (SFT) and direct preference optimization (DPO) as in the following step.
+The simplest way to start fine-tune your LLM is to use a plain Python on a **single GPU**. You can do the supervised fine-tuning (SFT) and direct preference optimization (DPO) as in the following step.
 
 ```
 # Step 1 - SFT
