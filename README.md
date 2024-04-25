@@ -30,9 +30,9 @@ To start fine-tuning your own LLM, we recommend using QLoRa fine-tuning because 
 {RUNNER} scripts/run_{MODE}.py {RECIPE}
 ```
 The main parameters are
-- `RUNNER`: can simply be the `python` runner for sing-gpu fine-tuning or `accelerate` runner with their following argument `--config_file {ACCELERATION_CONFIG}` when you want to use multi-gpus training
+- `RUNNER`: can simply be the `python` runner for sing-gpu fine-tuning or `accelerate` runner with the following argument `--config_file {ACCELERATION_CONFIG}` when you want to use multi-gpus training
 - `ACCELERATION_CONFIG`: is the mode to launch the trainer in multiple setups. Mainly, there're vanilla multi-gpus and ZeRO3 offloading for lower GPU memory usage that comes with the IO overhead. The available configurations are in `recipes/accelerate_configs`
-- `MODE`: can be `sft` (supervised fine-tuning) or `dpo` (direct preferene optimization)
+- `MODE`: can be `sft` (supervised fine-tuning) or `dpo` (direct preference optimization)
 - `RECIPE`: based on the model types in `recipes` folder
 
 ### QLoRa fine-tuning example
