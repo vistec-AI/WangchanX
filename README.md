@@ -1,12 +1,11 @@
 # WangchanX Fine-tuning Pipeline
-This repository contains fine-tuing scripts for both supervised fine-tuning (SFT) and the alignment scripts. Our goal is to create a model-agnostic fine-tuning and evaluation scripts pipeline focusing on the usability for Thai language.
+This repository contains fine-tuing scripts for both supervised fine-tuning (SFT) and the alignment scripts. Our goal is to create a model-agnostic fine-tuning pipeline and evaluation scripts focusing on the usability for Thai language.
 
 ## Released Models
 We apply our fine-tuning pipeline to various open-source models and publish their weights as follows:
-- LLaMa3-8b-WangchanX-sft-vXX
-- LLaMa3-8b-WangchanX-sft-ORPO-vXX
-- SeaLion-7b-WangchanX-sft-vXX
-- SeaLion-7b-WangchanX-sft-ORPO-vXX
+- [LLaMa3-8b-WangchanX-sft-vXX](https://huggingface.co/airesearch)
+- [SeaLion-7b-WangchanX-sft-vXX](https://huggingface.co/airesearch)
+- ...
 
 ## Released Dataset
 For reproducibility, we provide the scripts for dataset collection and preprocessing in /datasets path ...
@@ -15,7 +14,7 @@ For reproducibility, we provide the scripts for dataset collection and preproces
 
 1. Please install all dependencies in `requirements.txt` using pip install as
 ```
-pip3 install requirements.txt
+pip3 install -r requirements.txt
 ```
 
 2. Go to `Fine-tuning` section and select the  training strategy that suitable for your constrains.
@@ -24,27 +23,37 @@ pip3 install requirements.txt
 
 To start fine-tuning your own LLM, we recommend using QLoRa fine-tuning because it consume much lesser resources comparing to full fine-tune the LLM. The main template for the script is structurized as 
 ```
-ACCELERATE_LOG_LEVEL=info accelerate launch --config_file {ACCELERATION_CONFIG} scripts/run_{MODE}.py {RECIPE}
+{RUNNER} scripts/run_{MODE}.py {RECIPE}
 ```
 The main parameters are
+- `RUNNER`: can simply be the `python` runner for sing-gpu fine-tuning or `accelerate` runner with their following argument `--config_file {ACCELERATION_CONFIG}` when you want to use multi-gpus training
 - `ACCELERATION_CONFIG`: is the mode to launch the trainer in multiple setups. Mainly, there're vanilla multi-gpus and ZeRO3 offloading for lower GPU memory usage that comes with the IO overhead. The available configurations are in `recipes/accelerate_configs`
 - `MODE`: can be `sft` (supervised fine-tuning) or `dpo` (direct preferene optimization)
 - `RECIPE`: based on the model types in `recipes` folder
 
-
 ### QLoRa fine-tuning example
 
-You can do the supervised fine-tuning (SFT) and direct preference optimization (DPO) as in the following step.
+The simplest way to start fine-tune your LLM is to use a plain Python on a single GPU. You can do the supervised fine-tuning (SFT) and direct preference optimization (DPO) as in the following step.
 
 ```
 # Step 1 - SFT
-ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_configs/multi_gpu.yaml --num_processes=1 scripts/run_sft.py recipes/llama3-8b/sft/config_qlora.yaml
+python scripts/run_sft.py recipes/llama3-8b/sft/config_qlora.yaml
 
-# Step 2 - DPO
-ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_configs/multi_gpu.yaml --num_processes=1 scripts/run_dpo.py recipes/llama3-8b/dpo/config_qlora.yaml
+# Step 2 - DPO (optional)
+python scripts/run_dpo.py recipes/llama3-8b/dpo/config_qlora.yaml
 ```
 
-Please note that the number of argument `num_processes` should be the number of your available GPUs. We use the the default `num_processes=1` but you can modify it as you wish, for example, `num_processes=4` if you had 4 GPUs in a machine.
+Alternatively, you can exploit **multi-gpus** training by using the bellowing scripts.
+
+```
+# Step 1 - SFT
+ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_configs/multi_gpu.yaml --num_processes=4 scripts/run_sft.py recipes/llama3-8b/sft/config_qlora.yaml
+
+# Step 2 - DPO
+ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_configs/multi_gpu.yaml --num_processes=4 scripts/run_dpo.py recipes/llama3-8b/dpo/config_qlora.yaml
+```
+
+Please note that the number of argument `num_processes` should be the number of your available GPUs. We use the the default `num_processes=4`.
 
 ### Full fine-tuning example
 You can fine-tune the whole model using the following scripts.
@@ -78,8 +87,7 @@ Please note that the provided examples are all LLaMa3. Our pipeline support more
 Please visit https://github.com/vistec-AI/WangchanX-Eval for more detail.
 
 ## Deployment
-
-
+Coming Soon.
 
 ## Acknowledgements
 
