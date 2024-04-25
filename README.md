@@ -1,11 +1,15 @@
 # WangchanX Fine-tuning Pipeline
-This repository contains fine-tuning scripts for both supervised fine-tuning (SFT) and alignment scripts. Our goal is to create a model-agnostic fine-tuning pipeline and evaluation scripts focusing on the usability of the Thai language.
+This repository contains fine-tuning scripts for both supervised fine-tuning (SFT) and alignment scripts. 
+Our goal is to create a model-agnostic fine-tuning pipeline and evaluation scripts focusing on the usability of the Thai language. 
+The repository consists of three training scripts: (i) supervised fine-tuning (SFT), (ii) [direct preference optimization (DPO)](https://arxiv.org/abs/2305.18290), and (iii) [odds ratio preference optimization (ORPO)](https://arxiv.org/abs/2403.07691). 
+Currently, our project supports 4 base LLMs, such as LLaMa3, SeaLion, SeaLLMs, and PolyLM and we aim to support new LLMs in the future. 
 
 ## Released Models
 We apply our fine-tuning pipeline to various open-source models and publish their weights as follows:
 - [LLaMa3-8b-WangchanX-sft-vXX](https://huggingface.co/airesearch)
 - [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)
-- ...
+- [SeaLLMs-WangchanX-sft]()
+- [PolyLM-WangchanX-sft]()
 
 ## Released Dataset
 For reproducibility, we provide the scripts for dataset collection and preprocessing in /datasets path ...
@@ -21,7 +25,7 @@ pip3 install -r requirements.txt
 
 ## Fine-tuning
 
-To start fine-tuning your own LLM, we recommend using QLoRa fine-tuning because it consumes much lesser resources compared to fully fine-tuning the LLM. The main template for the script is structured as 
+To start fine-tuning your own LLM, we recommend using QLoRa fine-tuning because it consumes much fewer resources compared to fully fine-tuning the LLM. The main template for the script is structured as 
 ```
 {RUNNER} scripts/run_{MODE}.py {RECIPE}
 ```
@@ -93,6 +97,11 @@ Coming Soon.
 ## Acknowledgements
 
 We would like to thank all codes from XXXX. This GitHub is sponsored by VISTEC. 
+
+## Future Plans
+Here are some future plans and what we are doing:
+- Adding model and codes for ORPO. Currently, we have codes and preliminary models from the ORPO technique. We are planning to release them soon.
+- Thai LLMs benchmark. We are planning to create a machine reading comprehension leaderboard for Thai LLMs. We are happy for any ideas or contributions from everyone. 
 
 ## License
 ..
