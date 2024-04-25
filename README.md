@@ -96,7 +96,7 @@ Coming Soon.
 
 ## Acknowledgements
 
-We would like to thank all codes from XXXX. This project is sponsored by VISTEC. 
+We would like to thank all codes from XXXX. This project is sponsored by VISTEC, PTT, and SCBX. 
 
 ## Future Plans
 Here are some future plans and what we are doing:
