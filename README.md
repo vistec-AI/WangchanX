@@ -20,14 +20,12 @@ The models that trained on small instruction datasets
 
 ### Full models
 
-The models that trained on large instruction datasets (>400 GB of data)
+The models that trained on large instruction datasets (>400 GB of data). For reproducibility, we provide the scripts for dataset collection and preprocessing in [this repository](https://github.com/vistec-AI/WangchanX/tree/datasets).
 
 - [LLaMa3-8b-WangchanX-sft-vXX]()
 - [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)
 - [SeaLLMs-WangchanX-sft]()
 - [PolyLM-WangchanX-sft]()
-
-For reproducibility, we provide the scripts for dataset collection and preprocessing in [https://github.com/vistec-AI/WangchanX/tree/datasets](https://github.com/vistec-AI/WangchanX/tree/datasets). 
 
 ## Getting Started
 
@@ -47,15 +45,15 @@ pip3 install -r requirements.txt
 python3 reformat.py
 ```
 
-2. If you want to use the demo dataset, you can download it from [airesearch/concat_six_dataset_th_en](https://huggingface.co/datasets/airesearch/concat_six_dataset_th_en).
+2. If you want to use the demo dataset, you can download it from [this](https://huggingface.co/datasets/airesearch/concat_six_dataset_th_en).
 
 This dataset includes 6 datasets:
 
 - [pythainlp/han-instruct-dataset-v2.0](https://huggingface.co/datasets/pythainlp/han-instruct-dataset-v2.0)
 - [databricks/databricks-dolly-15k](https://huggingface.co/datasets/databricks/databricks-dolly-15k)
-- Dolly (translated English to Thai by Gemini)
-- [Math](https://github.com/AGI-Edgerunners/LLM-Adapters/blob/main/ft-training_set/math_14k.json)
-- Math (translated by Gemini)
+- databricks/databricks-dolly-15k (translated English to Thai by Gemini)
+- [math_14k](https://github.com/AGI-Edgerunners/LLM-Adapters/blob/main/ft-training_set/math_14k.json)
+- math_14k (translated by Gemini)
 - [iapp_wiki_qa_squad](https://huggingface.co/datasets/iapp_wiki_qa_squad)
 
 ## Fine-tuning
@@ -158,7 +156,6 @@ Here are some future plans and what we are doing:
 - Adding model and codes for ORPO. Currently, we have codes and preliminary models from the ORPO technique. We are planning to release them soon.
 - Thai LLMs benchmark. We are planning to create a machine reading comprehension leaderboard for Thai LLMs. We are happy for any ideas or contributions from everyone.
 - Deployment. We are planning to release codes for RAG and ChatBot. This will help Thai NLP engineers and researchers use and deploy LLMs in their works.
-
 
 ## Citation
 
