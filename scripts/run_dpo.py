@@ -28,7 +28,6 @@ from alignment import (
     H4ArgumentParser,
     ModelArguments,
     apply_chat_template,
-    decontaminate_humaneval,
     get_checkpoint,
     get_datasets,
     get_kbit_device_map,
@@ -109,6 +108,8 @@ def main():
         remove_columns=column_names,
         desc="Formatting comparisons with prompt template",
     )
+
+    raw_datasets = raw_datasets.filter(lambda x: len(tokenizer(x["text_prompt"], add_special_tokens=False)["input_ids"]) < training_args.max_prompt_length, num_proc=8)
 
     # Replace column names with what TRL needs, text_chosen -> chosen and text_rejected -> rejected
     for split in ["train", "test"]:

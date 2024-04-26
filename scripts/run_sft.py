@@ -33,7 +33,6 @@ from alignment import (
     ModelArguments,
     SFTConfig,
     apply_chat_template,
-    decontaminate_humaneval,
     get_checkpoint,
     get_datasets,
     get_kbit_device_map,
@@ -77,6 +76,7 @@ def main():
     logger.info(f"Data parameters {data_args}")
     logger.info(f"Training/evaluation parameters {training_args}")
 
+    #training_args.do_eval = False
     # Check for last checkpoint
     last_checkpoint = get_checkpoint(training_args)
     if last_checkpoint is not None and training_args.resume_from_checkpoint is None:
@@ -99,7 +99,6 @@ def main():
     ################
     # Load tokenizer
     ################
-    data_args.truncation_side = "right"
     tokenizer = get_tokenizer(model_args, data_args)
 
     #######################
@@ -143,9 +142,12 @@ def main():
         remove_columns=column_names,
         desc="Applying chat template",
     )
+    raw_datasets = raw_datasets.filter(lambda x: len(tokenizer(x["text"], add_special_tokens=False)["input_ids"]) < training_args.max_seq_length, num_proc=8)
 
     train_dataset = raw_datasets["train"]
-    eval_dataset = raw_datasets["test"]
+    
+    if training_args.do_eval:
+        eval_dataset = raw_datasets["test"]
 
     with training_args.main_process_first(desc="Log a few random samples from the processed training set"):
         for index in random.sample(range(len(raw_datasets["train"])), 3):
@@ -154,17 +156,17 @@ def main():
     ########################
     # Initialize the Trainer
     ########################
-    
+
     trainer = SFTTrainer(
         model=model,
         model_init_kwargs=model_kwargs,
         args=training_args,
         train_dataset=train_dataset,
-        eval_dataset=eval_dataset,
+        eval_dataset= eval_dataset if training_args.do_eval else None,
         dataset_text_field="text",
         max_seq_length=training_args.max_seq_length,
         tokenizer=tokenizer,
-        packing=True,
+        packing=False,
         peft_config=get_peft_config(model_args),
         dataset_kwargs=training_args.dataset_kwargs,
     )

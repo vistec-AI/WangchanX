@@ -20,7 +20,7 @@ from datasets import DatasetDict, concatenate_datasets, load_dataset, load_from_
 from datasets.builder import DatasetGenerationError
 
 from .configs import DataArguments
-
+from typing import List, Dict, Union
 
 DEFAULT_CHAT_TEMPLATE = "{% for message in messages %}\n{% if message['role'] == 'user' %}\n{{ '<|user|>\n' + message['content'] + eos_token }}\n{% elif message['role'] == 'system' %}\n{{ '<|system|>\n' + message['content'] + eos_token }}\n{% elif message['role'] == 'assistant' %}\n{{ '<|assistant|>\n'  + message['content'] + eos_token }}\n{% endif %}\n{% if loop.last and add_generation_prompt %}\n{{ '<|assistant|>' }}\n{% endif %}\n{% endfor %}"
 
@@ -175,7 +175,7 @@ def get_datasets(
     )
     return raw_datasets
 
-
+        
 def mix_datasets(
     dataset_mixer: dict,
     splits: Optional[List[str]] = None,
@@ -215,7 +215,10 @@ def mix_datasets(
         for split in splits:
             try:
                 # Try first if dataset on a Hub repo
-                dataset = load_dataset(ds, ds_config, split=split)
+                if ds.endswith('.json'):
+                    dataset = load_dataset("json" , data_files=ds, split=split)
+                else:
+                    dataset = load_dataset(ds, ds_config, split=split)
             except DatasetGenerationError:
                 # If not, check local dataset
                 dataset = load_from_disk(os.path.join(ds, split))
@@ -231,22 +234,22 @@ def mix_datasets(
 
     if any(frac < 0 for frac in fracs):
         raise ValueError("Dataset fractions cannot be negative.")
-
+    
     if len(raw_train_datasets) > 0:
         train_subsets = []
         for dataset, frac in zip(raw_train_datasets, fracs):
             train_subset = dataset.select(range(int(frac * len(dataset))))
             train_subsets.append(train_subset)
         if shuffle:
-            raw_datasets["train"] = concatenate_datasets(train_subsets).select(range(1000)).shuffle(seed=42)
+            raw_datasets["train"] = concatenate_datasets(train_subsets).shuffle(seed=42)
         else:
-            raw_datasets["train"] = concatenate_datasets(train_subsets).select(range(1000))
+            raw_datasets["train"] = concatenate_datasets(train_subsets)
     # No subsampling for test datasets to enable fair comparison across models
     if len(raw_val_datasets) > 0:
         if shuffle:
-            raw_datasets["test"] = concatenate_datasets(raw_val_datasets).select(range(1000)).shuffle(seed=42)
+            raw_datasets["test"] = concatenate_datasets(raw_val_datasets).shuffle(seed=42)
         else:
-            raw_datasets["test"] = concatenate_datasets(raw_val_datasets).select(range(1000))
+            raw_datasets["test"] = concatenate_datasets(raw_val_datasets)
 
     if len(raw_datasets) == 0:
         raise ValueError(

@@ -1,5 +1,5 @@
 # Model arguments
-model_name_or_path: meta-llama/Meta-Llama-3-8B
+model_name_or_path: DAMO-NLP-MT/polylm-1.7b
 model_revision: main
 torch_dtype: bfloat16
 use_flash_attention_2: true
@@ -28,7 +28,7 @@ lr_scheduler_type: cosine
 max_seq_length: 2048
 max_steps: -1
 num_train_epochs: 1
-output_dir: data/llama3-8b-sft-full
+output_dir: data/polylm-1.7b-sft-full
 overwrite_output_dir: true
 per_device_eval_batch_size: 4
 per_device_train_batch_size: 4

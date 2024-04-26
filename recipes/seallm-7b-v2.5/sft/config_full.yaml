@@ -1,5 +1,5 @@
 # Model arguments
-model_name_or_path: meta-llama/Meta-Llama-3-8B
+model_name_or_path: SeaLLMs/SeaLLM-7B-v2.5
 model_revision: main
 torch_dtype: bfloat16
 use_flash_attention_2: true
@@ -11,6 +11,7 @@ dataset_mixer:
 dataset_splits:
 - train
 preprocessing_num_workers: 12
+
 
 # SFT trainer config
 bf16: true
@@ -28,7 +29,7 @@ lr_scheduler_type: cosine
 max_seq_length: 2048
 max_steps: -1
 num_train_epochs: 1
-output_dir: data/llama3-8b-sft-full
+output_dir: data/SeaLLM-7B-v2.5-sft-full
 overwrite_output_dir: true
 per_device_eval_batch_size: 4
 per_device_train_batch_size: 4
