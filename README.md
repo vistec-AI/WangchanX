@@ -66,7 +66,7 @@ To start fine-tuning your own LLM, we recommend using QLoRa fine-tuning because 
 
 The main parameters are
 
-- `RUNNER`: can simply be the `python` runner for sing-gpu fine-tuning or `accelerate` runner with the following argument `--config_file {ACCELERATION_CONFIG}` when you want to use multi-gpus training
+- `RUNNER`: can simply be the `python` runner for single-gpu fine-tuning or `accelerate` runner with the following argument `--config_file {ACCELERATION_CONFIG}` when you want to use multi-gpus training
 - `ACCELERATION_CONFIG`: is the mode to launch the trainer in multiple setups. Mainly, there're vanilla multi-gpus and ZeRO3 offloading for lower GPU memory usage that comes with the IO overhead. The available configurations are in `recipes/accelerate_configs`
 - `MODE`: can be `sft` (supervised fine-tuning) or `dpo` (direct preference optimization)
 - `RECIPE`: based on the model types in `recipes` folder
@@ -128,11 +128,63 @@ Please note that the provided examples are all LLaMa3. Our pipeline supports mor
 
 ## Inference Example
 
-Inference Example:
+### Prepare your model and tokenizer:
 
 ```python
-print("")
+import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
+
+# Model path
+path = "LLaMa3-8b-WangchanX-sft-Demo"
+
+# Device
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+# Load tokenizer and model
+tokenizer = AutoTokenizer.from_pretrained(path, use_fast=False)
+model = AutoModelForCausalLM.from_pretrained(path, device_map="auto")
 ```
+
+### Define chat messages:
+
+```python
+messages = [
+    {"role": "user", "content": "ลิเก กับ งิ้ว ต่างกันอย่างไร"},
+]
+```
+
+### Tokenize chat messages:
+
+```python
+tokenized_chat = tokenizer.apply_chat_template(messages, tokenize=True, add_generation_prompt=True, return_tensors="pt").to(device)
+print(tokenizer.decode(tokenized_chat[0]))
+```
+
+<details close>
+  <summary>Output: </summary>
+  <br>
+    <pre lang="markdown">
+<|user|>
+ลิเก กับ งิ้ว ต่างกันอย่างไร<|end_of_text|>
+<|assistant|></pre>
+</details>
+
+### Generate responses:
+
+```python
+outputs = model.generate(tokenized_chat, max_length=2048)
+print(tokenizer.decode(outputs[0]))
+```
+
+<details close>
+  <summary>Output: </summary>
+  <br>
+    <pre lang="markdown">
+<|user|>
+ลิเก กับ งิ้ว ต่างกันอย่างไร<|end_of_text|>
+<|assistant|>
+ก่อนอื่นเราต้องรู้ความหมายของคำทั้งสอง คำว่า ลิเก เป็นศิลปะการแสดงแบบดั้งเดิมในประเทศไทย ส่วนคำว่า งิ้วน่าจะเป็นการนำภาษาไทยมาแปลจากคำว่า อินโดปีเลีย (indoplea) ซึ่งเป็นชื่อเรียกดนตรีที่มีต้นกำเนิดจากรัฐอุตตาร์ประเทศ ในอินเดีย และได้แพร่หลายไปยังเอเชียตะวันออกเฉียงใต้ โดยเฉพาะสาธารณรัฐประชาชนจีนและเวียดนาม จึงทำให้เกิดคำว่า งิ้วด้วย แต่ทุกคนไม่รู้ว่ามันก็คืออะไรจริง ๆ แล้ว มันมีความแตกต่างกันมาก เพราะถ้าไปถามชาวบ้านบางแห่งอาจจะบอกว่าเป็นอีกประเภทหนึ่งของเพลงโบราณหรือเพลงพื้นเมือง หรือถ้าพูดตามหลักทางประวัติศาสตร์ก็จะกล่าวว่านั่นคือ การขับร้องเพลงที่ใช้รูปแบบการประสานเสียงแบบฮินดู-ซิกห์วัล ที่ผสมผสานระหว่างภาษาอังกฤษ ภาษาจีนกลาง ภาษาพม่า และภาษาทางเหนือกับภาษาลาว รวมถึงภาษากลุ่มออสเตรโลไนว์ในอดีต ดังนั้นตอนนี้คุณสามารถสรุปได้อย่างแม่นยำว่าสองอย่างเหล่านี้แตกต่างกันอย่างไร: ลิเก คือ ศิลปะการแสดงที่มีมายาวนานกว่า 100 ปีในประเทศไทย เช่น ลิเกล้านนา, ลิเกตลุง, ลิเกล้อ ฯลฯ ขณะที่ งิ้ว หมายถึง เพลงประสานเสียงที่มีรากเหง้าของวงการเพลงคลาสสิคในอินเดีย และแพร่กระจายในเอเชียตะวันตกเฉียงใต้เป็นสิ่งแรกๆ หลังจากการเผยแผ่ศาสนายุคแรกๆ นอกจากนี้ ยังมีการรวมแนวเพลงเพื่อรวมเข้ากับการเต้นร่วมสมัยและบทละครที่มีอิทธิพลจากวรรณกรรมจีน<|end_of_text|></pre>
+</details>
 
 ## Evaluation
 
