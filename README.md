@@ -161,9 +161,6 @@ Here are some future plans and what we are doing:
 - Thai LLMs benchmark. We are planning to create a machine reading comprehension leaderboard for Thai LLMs. We are happy for any ideas or contributions from everyone.
 - Deployment. We are planning to release codes for RAG and ChatBot. This will help Thai NLP engineers and researchers use and deploy LLMs in their works.
 
-## License
-
-..
 
 ## Citation
 
