@@ -27,9 +27,7 @@ The models that trained on large instruction datasets (>400 GB of data)
 - [SeaLLMs-WangchanX-sft]()
 - [PolyLM-WangchanX-sft]()
 
-## Released Dataset
-
-For reproducibility, we provide the scripts for dataset collection and preprocessing in /datasets path ...
+For reproducibility, we provide the scripts for dataset collection and preprocessing in [https://github.com/vistec-AI/WangchanX/tree/datasets](https://github.com/vistec-AI/WangchanX/tree/datasets). 
 
 ## Getting Started
 
