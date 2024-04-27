@@ -35,18 +35,16 @@ The models that trained on large instruction datasets (>400 GB of data). For rep
 - [PolyLM-WangchanX-sft]() (Release soon)
 
 ## Evaluation
-We evaluate each LLM in terms of (i) Correctness Q1 (higher is better), (ii) Helpfulness Q2 (higher is better), (iii) Irrelevancy Q3 (lower is better), and (iv) Out-of-Context Q4 (lower is better).
 
-| Model                                                                                          | Q1     | Q2     | Q3     | Q4    |
-|------------------------------------------------------------------------------------------------|--------|--------|--------|-------|
-| [LLaMa3-8b-WangchanX-sft-Demo](https://huggingface.co/airesearch/LLaMa3-8b-WangchanX-sft-Demo) | **92** | **23** | **14** | **4** |
-| [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)                   | 68     | 5      | 19     | **4** |
-| [typhoon-7b-WangchanX-sft-Demo](https://huggingface.co/airesearch/typhoon-7b-WangchanX-sft-Demo)| 83     | 17      | **14**     | 6 |
+We evaluate each LLM in terms of (i) Correctness Q1 (higher is better), (ii) Helpfulness Q2 (higher is better), (iii) Irrelevancy Q3 (lower is better), and (iv) Out-of-Context Q4 (lower is better). In addition, we use 100 questions from XQuAD. Please visit [https://github.com/vistec-AI/WangchanX-Eval](https://github.com/vistec-AI/WangchanX-Eval) for more details about evaluation and benchmarking Thai LLMs.
 
-Please visit [https://github.com/vistec-AI/WangchanX-Eval](https://github.com/vistec-AI/WangchanX-Eval) for more details about evaluation and benchmarking Thai LLMs.
+| Model                                                                                            | Q1     | Q2     | Q3     | Q4    |
+| ------------------------------------------------------------------------------------------------ | ------ | ------ | ------ | ----- |
+| [LLaMa3-8b-WangchanX-sft-Demo](https://huggingface.co/airesearch/LLaMa3-8b-WangchanX-sft-Demo)   | **92** | **23** | **14** | **4** |
+| [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)                     | 68     | 5      | 19     | **4** |
+| [typhoon-7b-WangchanX-sft-Demo](https://huggingface.co/airesearch/typhoon-7b-WangchanX-sft-Demo) | 83     | 17     | **14** | 6     |
 
 ## Getting Started
-
 
 1. Please install all dependencies in `requirements.txt` using pip install as
 
@@ -55,8 +53,6 @@ pip3 install -r requirements.txt
 ```
 
 2. Go to the `Fine-tuning` section and select the training strategy that is suitable for your constraints.
-
-   
 
 ## Prepare Dataset (Optional)
 
@@ -74,7 +70,7 @@ This dataset includes 6 datasets:
 - [databricks/databricks-dolly-15k](https://huggingface.co/datasets/databricks/databricks-dolly-15k)
 - databricks/databricks-dolly-15k (translated English to Thai by Gemini)
 - [math_14k](https://github.com/AGI-Edgerunners/LLM-Adapters/blob/main/ft-training_set/math_14k.json)
-- math_14k (translated by Gemini)
+- math_14k (translated English to Thai by Gemini)
 - [iapp_wiki_qa_squad](https://huggingface.co/datasets/iapp_wiki_qa_squad)
 
 ## Fine-tuning
@@ -140,6 +136,8 @@ ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_con
 
 ## Inference Example
 
+Run in [Colab](https://colab.research.google.com/drive/1mqGurDF4GFApp8FOB7SispmlKsdebbAi?usp=sharing)
+
 ### Prepare your model and tokenizer:
 
 ```python
@@ -147,7 +145,7 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 # Model path
-path = "LLaMa3-8b-WangchanX-sft-Demo"
+path = "airesearch/LLaMa3-8b-WangchanX-sft-Demo"
 
 # Device
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
