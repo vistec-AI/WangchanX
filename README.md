@@ -31,8 +31,11 @@ For reproducibility, we provide the scripts for dataset collection and preproces
 ```
 pip3 install -r requirements.txt
 ```
-
-2. Go to the `Fine-tuning` section and select the training strategy that is suitable for your constraints.
+2. Please install Flash Attention 2 using pip install as
+```
+pip3 install flash-attn --no-build-isolation
+```
+3. Go to the `Fine-tuning` section and select the training strategy that is suitable for your constraints.
 
 ## Fine-tuning
 
