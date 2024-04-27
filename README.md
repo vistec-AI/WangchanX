@@ -13,19 +13,19 @@ We apply our fine-tuning pipeline to various open-source models and publish thei
 
 The models that trained on small instruction datasets
 
-- [LLaMa3-8b-WangchanX-sft-vXX-Demo]()
-- [SeaLion-7b-WangchanX-sft-Demo]()
-- [SeaLLMs-WangchanX-sft-Demo]()
-- [PolyLM-WangchanX-sft-Demo]()
+- [LLaMa3-8b-WangchanX-sft-Demo](https://huggingface.co/airesearch/LLaMa3-8b-WangchanX-sft-Demo)
+- [SeaLion-7b-WangchanX-sft-Demo]() (Release soon)
+- [SeaLLMs-WangchanX-sft-Demo]() (Release soon)
+- [PolyLM-WangchanX-sft-Demo]() (Release soon)
 
 ### Full models
 
 The models that trained on large instruction datasets (>400 GB of data). For reproducibility, we provide the scripts for dataset collection and preprocessing in [this repository](https://github.com/vistec-AI/WangchanX/tree/datasets).
 
-- [LLaMa3-8b-WangchanX-sft-vXX]()
+- [LLaMa3-8b-WangchanX-sft-vXX]() (Release soon)
 - [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)
-- [SeaLLMs-WangchanX-sft]()
-- [PolyLM-WangchanX-sft]()
+- [SeaLLMs-WangchanX-sft]() (Release soon)
+- [PolyLM-WangchanX-sft]() (Release soon)
 
 ## Getting Started
 
