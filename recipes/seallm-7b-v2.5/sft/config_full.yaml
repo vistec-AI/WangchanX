@@ -28,7 +28,7 @@ logging_strategy: steps
 lr_scheduler_type: cosine
 max_seq_length: 2048
 max_steps: -1
-num_train_epochs: 1
+num_train_epochs: 6
 output_dir: data/SeaLLM-7B-v2.5-sft-full
 overwrite_output_dir: true
 per_device_eval_batch_size: 4
@@ -37,7 +37,7 @@ remove_unused_columns: true
 report_to:
 - wandb
 save_strategy: "steps"
-save_steps: 100
+save_steps: 1000
 save_total_limit: 1
 seed: 42
 warmup_ratio: 0.1

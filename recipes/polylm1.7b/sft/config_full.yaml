@@ -22,12 +22,12 @@ gradient_checkpointing_kwargs:
   use_reentrant: False
 learning_rate: 2.0e-05
 log_level: info
-logging_steps: 5  
+logging_steps: 50  
 logging_strategy: steps
 lr_scheduler_type: cosine
 max_seq_length: 2048
 max_steps: -1
-num_train_epochs: 1
+num_train_epochs: 6
 output_dir: data/polylm-1.7b-sft-full
 overwrite_output_dir: true
 per_device_eval_batch_size: 4
@@ -36,7 +36,7 @@ remove_unused_columns: true
 report_to:
 - wandb
 save_strategy: "steps"
-save_steps: 100
+save_steps: 1000
 save_total_limit: 1
 seed: 42
 warmup_ratio: 0.1

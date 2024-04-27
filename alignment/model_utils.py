@@ -74,7 +74,7 @@ def get_tokenizer(
         trust_remote_code=model_args.trust_remote_code,
     )
     if tokenizer.pad_token_id is None:
-        tokenizer.pad_token_id = tokenizer.eot_token_id
+        tokenizer.pad_token_id = tokenizer.eos_token_id
 
     if data_args.truncation_side is not None:
         tokenizer.truncation_side = data_args.truncation_side
