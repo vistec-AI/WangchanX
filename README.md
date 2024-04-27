@@ -6,7 +6,7 @@ The repository consists of three training scripts: (i) supervised fine-tuning (S
 
 ### Supported base LLMs
 
-Please note that the provided examples are all LLaMa3. Our pipeline supports more than one LLM. Here is the list of supported base LLMs that we have tested on our scripts.
+Here is the list of supported base LLMs that we have tested on our scripts.
 
 - LLaMa3
 - SeaLion (Please refer to GitHub:[https://github.com/vistec-AI/WangchanLion](https://github.com/vistec-AI/WangchanLion) for the full detail)
@@ -79,7 +79,7 @@ This dataset includes 6 datasets:
 
 ## Fine-tuning
 
-To start fine-tuning your own LLM, we recommend using QLoRa fine-tuning because it consumes much fewer resources compared to fully fine-tuning the LLM. The main template for the script is structured as
+To start fine-tuning your own LLM, we recommend using QLoRa fine-tuning because it consumes much fewer resources compared to fully fine-tuning the LLM. Please note that the provided examples are all LLaMa3. The main template for the script is structured as
 
 ```
 {RUNNER} scripts/run_{MODE}.py {RECIPE}
