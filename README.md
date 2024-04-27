@@ -22,7 +22,7 @@ The models that trained on small instruction datasets
 
 The models that trained on large instruction datasets (>400 GB of data). For reproducibility, we provide the scripts for dataset collection and preprocessing in [this repository](https://github.com/vistec-AI/WangchanX/tree/datasets).
 
-- [LLaMa3-8b-WangchanX-sft-vXX]() (Release soon)
+- [LLaMa3-8b-WangchanX-sft]() (Release soon)
 - [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)
 - [SeaLLMs-WangchanX-sft]() (Release soon)
 - [PolyLM-WangchanX-sft]() (Release soon)
@@ -187,8 +187,12 @@ print(tokenizer.decode(outputs[0]))
 </details>
 
 ## Evaluation
+We evaluate each LLM in terms of (i) Correctness Q1 (higher is better), (ii) Helpfulness Q2 (higher is better), (iii) Irrelevancy Q3 (lower is better), and (iv) Out-of-Context Q4 (lower is better).
 
--- table --
+| Model                                                                                          | Q1     | Q2     | Q3     | Q4    |
+|------------------------------------------------------------------------------------------------|--------|--------|--------|-------|
+| [LLaMa3-8b-WangchanX-sft-Demo](https://huggingface.co/airesearch/LLaMa3-8b-WangchanX-sft-Demo) | **92** | **23** | **14** | **4** |
+| [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)                   |        |        |        |       |
 
 Please visit [https://github.com/vistec-AI/WangchanX-Eval](https://github.com/vistec-AI/WangchanX-Eval) for more details about evaluation and benchmarking Thai LLMs.
 
