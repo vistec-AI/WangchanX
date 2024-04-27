@@ -139,7 +139,7 @@ ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_con
 
 ## Inference Example
 
-Run in [Colab](https://colab.research.google.com/drive/1mqGurDF4GFApp8FOB7SispmlKsdebbAi?usp=sharing)
+Run in [Colab](https://colab.research.google.com/github/vistec-AI/WangchanX/blob/main/notebooks/Inference_WangchanX_pipeline.ipynb)
 
 ### Prepare your model and tokenizer:
 
