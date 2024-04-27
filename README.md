@@ -3,7 +3,16 @@
 This repository contains fine-tuning scripts for both supervised fine-tuning (SFT) and alignment scripts.
 Our goal is to create a model-agnostic fine-tuning pipeline and evaluation scripts focusing on the usability of the Thai language.
 The repository consists of three training scripts: (i) supervised fine-tuning (SFT), (ii) [direct preference optimization (DPO)](https://arxiv.org/abs/2305.18290), and (iii) [odds ratio preference optimization (ORPO)](https://arxiv.org/abs/2403.07691).
-Currently, our project supports 4 base LLMs, such as LLaMa3, SeaLion, SeaLLMs, and PolyLM and we aim to support new LLMs in the future.
+
+### Supported base LLMs
+
+Please note that the provided examples are all LLaMa3. Our pipeline supports more than one LLM. Here is the list of supported base LLMs that we have tested on our scripts.
+
+- LLaMa3
+- SeaLion (Please refer to GitHub:[https://github.com/vistec-AI/WangchanLion](https://github.com/vistec-AI/WangchanLion) for the full detail)
+- SeaLLMs
+- PolyLM
+- Typhoon
 
 ## Released Models
 
@@ -14,8 +23,8 @@ We apply our fine-tuning pipeline to various open-source models and publish thei
 The models that trained on small instruction datasets
 
 - [LLaMa3-8b-WangchanX-sft-Demo](https://huggingface.co/airesearch/LLaMa3-8b-WangchanX-sft-Demo)
-- [SeaLion-7b-WangchanX-sft-Demo]() (Release soon)
 - [PolyLM-WangchanX-sft-Demo]() (Release soon)
+- [typhoon-7b-WangchanX-sft-Demo](https://huggingface.co/airesearch/typhoon-7b-WangchanX-sft-Demo)
 
 ### Full models
 
@@ -32,10 +41,12 @@ We evaluate each LLM in terms of (i) Correctness Q1 (higher is better), (ii) Hel
 |------------------------------------------------------------------------------------------------|--------|--------|--------|-------|
 | [LLaMa3-8b-WangchanX-sft-Demo](https://huggingface.co/airesearch/LLaMa3-8b-WangchanX-sft-Demo) | **92** | **23** | **14** | **4** |
 | [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)                   | 68     | 5      | 19     | **4** |
+| [typhoon-7b-WangchanX-sft-Demo](https://huggingface.co/airesearch/typhoon-7b-WangchanX-sft-Demo)| 83     | 17      | **14**     | 6 |
 
 Please visit [https://github.com/vistec-AI/WangchanX-Eval](https://github.com/vistec-AI/WangchanX-Eval) for more details about evaluation and benchmarking Thai LLMs.
 
 ## Getting Started
+
 
 1. Please install all dependencies in `requirements.txt` using pip install as
 
@@ -44,6 +55,8 @@ pip3 install -r requirements.txt
 ```
 
 2. Go to the `Fine-tuning` section and select the training strategy that is suitable for your constraints.
+
+   
 
 ## Prepare Dataset (Optional)
 
@@ -124,15 +137,6 @@ ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_con
 # Step 2 - DPO
 ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_configs/deepspeed_zero3.yaml scripts/run_dpo.py recipes/llama3-8b/dpo/config_full.yaml
 ```
-
-### Supported base LLMs
-
-Please note that the provided examples are all LLaMa3. Our pipeline supports more than one LLM. Here is the list of supported base LLMs that we have tested on our scripts.
-
-- LLaMa3
-- SeaLion (Please refer to GitHub:[https://github.com/vistec-AI/WangchanLion](https://github.com/vistec-AI/WangchanLion) for the full detail)
-- SeaLLMs
-- PolyLM
 
 ## Inference Example
 
