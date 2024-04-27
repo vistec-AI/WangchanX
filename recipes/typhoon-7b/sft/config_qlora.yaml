@@ -34,22 +34,22 @@ preprocessing_num_workers: 12
 bf16: true
 do_eval: false
 evaluation_strategy: 'no'
-gradient_accumulation_steps: 2
+gradient_accumulation_steps: 32
 gradient_checkpointing: true
 gradient_checkpointing_kwargs:
   use_reentrant: false
 learning_rate: 2.0e-04
 log_level: info
-logging_steps: 5  
+logging_steps: 50  
 logging_strategy: steps
 lr_scheduler_type: cosine
 max_seq_length: 2048
 max_steps: -1
-num_train_epochs: 1
+num_train_epochs: 6
 output_dir: data/typhoon-7b-sft-qlora
 overwrite_output_dir: true
-per_device_eval_batch_size: 2
-per_device_train_batch_size: 2
+per_device_eval_batch_size: 4
+per_device_train_batch_size: 4
 report_to:
 - wandb
 save_strategy: "steps"
