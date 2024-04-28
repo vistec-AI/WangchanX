@@ -40,10 +40,10 @@ We evaluate each LLM in terms of (i) Correctness Q1 (higher is better), (ii) Hel
 
 | Model                                                                                            | Q1     | Q2     | Q3     | Q4    |
 | ------------------------------------------------------------------------------------------------ | ------ | ------ | ------ | ----- |
-| [LLaMa3-8b-WangchanX-sft-Demo](https://huggingface.co/airesearch/LLaMa3-8b-WangchanX-sft-Demo)   | **92** | **23** | **14** | **4** |
-| [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)                     | 68     | 5      | 19     | **4** |
-| [typhoon-7b-WangchanX-sft-Demo](https://huggingface.co/airesearch/typhoon-7b-WangchanX-sft-Demo) | 83     | 17     | **14** | 6     |
-
+| [LLaMa3-8b-WangchanX-sft-Demo](https://huggingface.co/airesearch/LLaMa3-8b-WangchanX-sft-Demo)   | **92** | **23** | **14** |   4   |
+| [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)                     | 68     | 5      | 19     |   4   |
+| [typhoon-7b-WangchanX-sft-Demo](https://huggingface.co/airesearch/typhoon-7b-WangchanX-sft-Demo) | 83     | 17     | **14** |   6   |
+| [PolyLM-13b-WangchanX-sft-Demo](https://huggingface.co/airesearch/PolyLM-13b-WangchanX-sft-Demo) | 76     | 16     | 18     | **2** |
 ## Getting Started
 
 1. Please install all dependencies in `requirements.txt` using pip install as
