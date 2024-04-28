@@ -23,7 +23,7 @@ We apply our fine-tuning pipeline to various open-source models and publish thei
 The models that trained on small instruction datasets
 
 - [LLaMa3-8b-WangchanX-sft-Demo](https://huggingface.co/airesearch/LLaMa3-8b-WangchanX-sft-Demo)
-- [PolyLM-WangchanX-sft-Demo]() (Release soon)
+- [PolyLM-13b-WangchanX-sft-Demo](https://huggingface.co/airesearch/PolyLM-13b-WangchanX-sft-Demo)
 - [typhoon-7b-WangchanX-sft-Demo](https://huggingface.co/airesearch/typhoon-7b-WangchanX-sft-Demo)
 
 ### Full models
