@@ -78,6 +78,8 @@ This dataset includes 6 datasets:
 
 ## Fine-tuning
 
+Train on [Colab](https://colab.research.google.com/github/vistec-AI/WangchanX/blob/main/notebooks/Train_WangchanX_pipeline.ipynb)
+
 To start fine-tuning your own LLM, we recommend using QLoRa fine-tuning because it consumes much fewer resources compared to fully fine-tuning the LLM. Please note that the provided examples are all LLaMa3. The main template for the script is structured as
 
 ```
