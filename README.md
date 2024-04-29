@@ -9,7 +9,7 @@ The repository consists of three training scripts: (i) supervised fine-tuning (S
 Here is the list of supported base LLMs that we have tested on our scripts.
 
 - LLaMa3
-- SeaLion (Please refer to GitHub:[https://github.com/vistec-AI/WangchanLion](https://github.com/vistec-AI/WangchanLion) for the full detail)
+- SEA-LION (Please refer to GitHub:[https://github.com/vistec-AI/WangchanLion](https://github.com/vistec-AI/WangchanLion) for the full detail)
 - SeaLLMs
 - PolyLM
 - Typhoon
