@@ -48,11 +48,11 @@ We evaluate each LLM in terms of (i) Correctness Q1 (higher is better), (ii) Hel
 
 1. Please install all dependencies in `requirements.txt` using pip install as
 
-```
+```bash
 pip3 install -r requirements.txt
 ```
 2. Please install Flash Attention 2 using pip install as
-```
+```bash
 pip3 install flash-attn --no-build-isolation
 ```
 3. Go to the `Fine-tuning` section and select the training strategy that is suitable for your constraints.
@@ -61,7 +61,7 @@ pip3 install flash-attn --no-build-isolation
 
 1. If you want to use a custom dataset, you need to reformat the file by editing it.
 
-```python
+```bash
 python3 reformat.py
 ```
 
@@ -78,11 +78,11 @@ This dataset includes 6 datasets:
 
 ## Fine-tuning
 
-Train on [Colab](https://colab.research.google.com/github/vistec-AI/WangchanX/blob/main/notebooks/Train_WangchanX_pipeline.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vistec-AI/WangchanX/blob/main/notebooks/Train_WangchanX_pipeline.ipynb)
 
 To start fine-tuning your own LLM, we recommend using QLoRa fine-tuning because it consumes much fewer resources compared to fully fine-tuning the LLM. Please note that the provided examples are all LLaMa3. The main template for the script is structured as
 
-```
+```bash
 {RUNNER} scripts/run_{MODE}.py {RECIPE}
 ```
 
@@ -97,7 +97,7 @@ The main parameters are
 
 The simplest way to start fine-tuning your LLM is to use plain Python on a **single GPU**. You can do the supervised fine-tuning (SFT) and direct preference optimization (DPO) as in the following step.
 
-```
+```bash
 # Step 1 - SFT
 python scripts/run_sft.py recipes/llama3-8b/sft/config_qlora.yaml
 
@@ -107,7 +107,7 @@ python scripts/run_dpo.py recipes/llama3-8b/dpo/config_qlora.yaml
 
 Alternatively, you can exploit **multi-gpus** training by using the bellowing scripts.
 
-```
+```bash
 # Step 1 - SFT
 ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_configs/multi_gpu.yaml --num_processes=4 scripts/run_sft.py recipes/llama3-8b/sft/config_qlora.yaml
 
@@ -121,7 +121,7 @@ Please note that the number of arguments `num_processes` should be the number of
 
 You can fine-tune the whole model using the following scripts.
 
-```
+```bash
 # Step 1 - SFT
 ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_configs/multi_gpu.yaml scripts/run_sft.py recipes/llama3-8b/sft/config_full.yaml
 
@@ -131,7 +131,7 @@ ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_con
 
 In case you have limited GPU resources but still want to do the full fine-tuing, please consider using DeepSpeed ZeRO3. By adding `config_file` argument, you are good to go!
 
-```
+```bash
 # Step 1 - SFT
 ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_configs/deepspeed_zero3.yaml scripts/run_sft.py recipes/llama3-8b/sft/config_full.yaml
 
@@ -141,7 +141,7 @@ ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_con
 
 ## Inference Example
 
-Run in [Colab](https://colab.research.google.com/github/vistec-AI/WangchanX/blob/main/notebooks/Inference_WangchanX_pipeline.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1PeUnv89Ao2uHRYYzZVOlUwoBUdYKFbLS?usp=sharing)
 
 ### Prepare your model and tokenizer:
 
