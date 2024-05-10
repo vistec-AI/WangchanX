@@ -1,0 +1,26 @@
+FROM ollama/ollama
+
+COPY LLaMa3-8b-WangchanX-sft-Demo /root/LLaMa3-8b-WangchanX-sft-Demo
+COPY Modelfile /root
+
+RUN apt update && apt-get install python3 python3-pip python3-venv git -y
+
+# Clone the ollama repository first
+RUN git clone https://github.com/ollama/ollama.git /root/ollama
+
+# Change to the cloned ollama directory
+WORKDIR /root/ollama
+
+# Initialize and update git submodules
+RUN git submodule update --init --recursive
+
+# Create and activate virtual environment
+RUN python3 -m venv .venv
+RUN . .venv/bin/activate
+RUN python3 -m pip install -r llm/llama.cpp/requirements.txt
+
+# Build the submodule
+RUN make -C llm/llama.cpp quantize
+
+# Convert
+RUN python3 llm/llama.cpp/convert-hf-to-gguf.py /root/LLaMa3-8b-WangchanX-sft-Demo --outtype f16 --outfile /root/LLaMa3-8b-WangchanX-sft-Demo.gguf

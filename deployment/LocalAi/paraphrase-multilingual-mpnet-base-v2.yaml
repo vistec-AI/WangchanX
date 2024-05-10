@@ -1,0 +1,5 @@
+name: paraphrase-multilingual-mpnet-base-v2
+backend: sentencetransformers
+embeddings: true
+parameters:
+  model: sentence-transformers/paraphrase-multilingual-mpnet-base-v2

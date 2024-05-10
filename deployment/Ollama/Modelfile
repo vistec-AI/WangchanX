@@ -1,0 +1,9 @@
+FROM ./LLaMa3-8b-WangchanX-sft-Demo.gguf
+
+
+TEMPLATE """{{ if .System }}<|system|>\n{{.System}}<|end_of_text|>\n{{ end }}{{ if .Prompt }}<|user|>\n{{ .Prompt }}<|end_of_text|>\n{{ end }}<|assistant|>\n"""
+
+PARAMETER stop "<|end_of_text|>"
+PARAMETER stop "<|assistant|>"
+PARAMETER stop "<|user|>"
+PARAMETER stop "<|system|>"
