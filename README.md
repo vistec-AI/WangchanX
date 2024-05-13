@@ -1,20 +1,37 @@
 # WangchanX Fine-tuning Pipeline
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![Python 3.10.12](https://img.shields.io/static/v1?label=Python&message=3.10.12&color=blue&logo=python&logoColor=white)
+
 This repository contains fine-tuning scripts for both supervised fine-tuning (SFT) and alignment scripts.
 Our goal is to create a model-agnostic fine-tuning pipeline and evaluation scripts focusing on the usability of the Thai language.
 The repository consists of three training scripts: (i) supervised fine-tuning (SFT), (ii) [direct preference optimization (DPO)](https://arxiv.org/abs/2305.18290), and (iii) [odds ratio preference optimization (ORPO)](https://arxiv.org/abs/2403.07691).
 
-### Supported base LLMs
+## Content
+
+- [Supported base LLMs](#-supported-base-llms)
+- [Released Models](#-released-models)
+- [Evaluation (0-shot)](#-evaluation-0-shot)
+- [Installation](#-installation)
+- [Prepare Dataset (Optional)](#-prepare-dataset-optional)
+- [Fine-tuning](#-fine-tuning)
+- [Inference](#-inference)
+- [Deployment](#-deployment)
+- [Retrieval Augmented Generation (RAG)](#-retrieval-augmented-generation-rag)
+- [Acknowledgements](#-acknowledgements)
+- [Future Plans](#-future-plans)
+- [Citation](#-citation)
+
+## 💡 Supported base LLMs
 
 Here is the list of supported base LLMs that we have tested on our scripts.
 
 - LLaMa3
-- SEA-LION (Please refer to GitHub:[https://github.com/vistec-AI/WangchanLion](https://github.com/vistec-AI/WangchanLion) for the full detail)
 - SeaLLMs
 - PolyLM
 - Typhoon
+- SEA-LION (Please refer to GitHub: [vistec-AI/WangchanLion](https://github.com/vistec-AI/WangchanLion) for the full detail)
 
-## Released Models
+## 🤖 Released Models
 
 We apply our fine-tuning pipeline to various open-source models and publish their weights as follows:
 
@@ -34,30 +51,34 @@ The models that trained on large instruction datasets (>400 GB of data). For rep
 - [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)
 - [PolyLM-WangchanX-sft]() (Release soon)
 
-## Evaluation (0-shot)
+## ⚡ Evaluation (0-shot)
 
-We evaluate each LLM in terms of (i) Correctness Q1 (higher is better), (ii) Helpfulness Q2 (higher is better), (iii) Irrelevancy Q3 (lower is better), and (iv) Out-of-Context Q4 (lower is better). In addition, we use 100 questions from XQuAD. Please visit [https://github.com/vistec-AI/WangchanX-Eval](https://github.com/vistec-AI/WangchanX-Eval) for more details about evaluation and benchmarking Thai LLMs.
+We evaluate each LLM in terms of (i) Correctness Q1 (higher is better), (ii) Helpfulness Q2 (higher is better), (iii) Irrelevancy Q3 (lower is better), and (iv) Out-of-Context Q4 (lower is better). In addition, we use 100 questions from XQuAD. Please visit [WangchanX-Eval](https://github.com/vistec-AI/WangchanX-Eval) for more details about evaluation and benchmarking Thai LLMs.
 
 | Model                                                                                            | Q1     | Q2     | Q3     | Q4    |
 | ------------------------------------------------------------------------------------------------ | ------ | ------ | ------ | ----- |
-| [LLaMa3-8b-WangchanX-sft-Demo](https://huggingface.co/airesearch/LLaMa3-8b-WangchanX-sft-Demo)   | **92** | **23** | **14** |   4   |
-| [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)                     | 68     | 5      | 19     |   4   |
-| [typhoon-7b-WangchanX-sft-Demo](https://huggingface.co/airesearch/typhoon-7b-WangchanX-sft-Demo) | 83     | 17     | **14** |   6   |
+| [LLaMa3-8b-WangchanX-sft-Demo](https://huggingface.co/airesearch/LLaMa3-8b-WangchanX-sft-Demo)   | **92** | **23** | **14** | 4     |
+| [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)                     | 68     | 5      | 19     | 4     |
+| [typhoon-7b-WangchanX-sft-Demo](https://huggingface.co/airesearch/typhoon-7b-WangchanX-sft-Demo) | 83     | 17     | **14** | 6     |
 | [PolyLM-13b-WangchanX-sft-Demo](https://huggingface.co/airesearch/PolyLM-13b-WangchanX-sft-Demo) | 76     | 16     | 18     | **2** |
-## Getting Started
+
+## 📦 Installation
 
 1. Please install all dependencies in `requirements.txt` using pip install as
 
 ```bash
 pip3 install -r requirements.txt
 ```
+
 2. Please install Flash Attention 2 using pip install as
+
 ```bash
 pip3 install flash-attn --no-build-isolation
 ```
+
 3. Go to the `Fine-tuning` section and select the training strategy that is suitable for your constraints.
 
-## Prepare Dataset (Optional)
+## 📋 Prepare Dataset (Optional)
 
 1. If you want to use a custom dataset, you need to reformat the file by editing it.
 
@@ -76,7 +97,7 @@ This dataset includes 6 datasets:
 - math_14k (translated English to Thai by Gemini)
 - [iapp_wiki_qa_squad](https://huggingface.co/datasets/iapp_wiki_qa_squad)
 
-## Fine-tuning
+## 🛠 Fine-tuning
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vistec-AI/WangchanX/blob/main/notebooks/Train_WangchanX_pipeline.ipynb)
 
@@ -88,58 +109,61 @@ To start fine-tuning your own LLM, we recommend using QLoRa fine-tuning because 
 
 The main parameters are
 
-- `RUNNER`: can simply be the `python` runner for single-gpu fine-tuning or `accelerate` runner with the following argument `--config_file {ACCELERATION_CONFIG}` when you want to use multi-gpus training
-- `ACCELERATION_CONFIG`: is the mode to launch the trainer in multiple setups. Mainly, there're vanilla multi-gpus and ZeRO3 offloading for lower GPU memory usage that comes with the IO overhead. The available configurations are in `recipes/accelerate_configs`
-- `MODE`: can be `sft` (supervised fine-tuning) or `dpo` (direct preference optimization)
-- `RECIPE`: based on the model types in `recipes` folder
+| Parameter             | Description                                                                                                                                                                                                            |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `RUNNER`              | Can be `python` for single-GPU fine-tuning or `accelerate` with the argument `--config_file {ACCELERATION_CONFIG}` for multi-GPU training.                                                                             |
+| `ACCELERATION_CONFIG` | The mode to launch the trainer in multiple setups. Mainly, there are vanilla multi-GPU and ZeRO3 offloading for lower GPU memory usage with IO overhead. Available configurations are in `recipes/accelerate_configs`. |
+| `MODE`                | Can be `sft` (supervised fine-tuning) or `dpo` (direct preference optimization).                                                                                                                                       |
+| `RECIPE`              | Based on the model types in the `recipes` folder.                                                                                                                                                                      |
 
-### QLoRa fine-tuning example
-
-The simplest way to start fine-tuning your LLM is to use plain Python on a **single GPU**. You can do the supervised fine-tuning (SFT) and direct preference optimization (DPO) as in the following step.
-
-```bash
-# Step 1 - SFT
-python scripts/run_sft.py recipes/llama3-8b/sft/config_qlora.yaml
-
-# Step 2 - DPO (optional)
+<details>
+<summary>QLoRa fine-tuning example</summary>
+<br>
+The simplest way to start fine-tuning your LLM is to use plain Python on a <strong>single GPU</strong>. You can do the supervised fine-tuning (SFT) and direct preference optimization (DPO) as in the following step.
+<br>
+<br>
+<pre lang="bash">
+#Step 1 - SFT
+python scripts/run_sft.py recipes/llama3-8b/sft/config_qlora.yaml<br>
+#Step 2 - DPO (optional)
 python scripts/run_dpo.py recipes/llama3-8b/dpo/config_qlora.yaml
-```
 
-Alternatively, you can exploit **multi-gpus** training by using the bellowing scripts.
-
-```bash
+</pre>
+Alternatively, you can exploit <strong>multi-gpus</strong> training by using the bellowing scripts.
+<br>
+<br>
+<pre lang="bash">
 # Step 1 - SFT
-ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_configs/multi_gpu.yaml --num_processes=4 scripts/run_sft.py recipes/llama3-8b/sft/config_qlora.yaml
-
+ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_configs/multi_gpu.yaml --num_processes=4 scripts/run_sft.py recipes/llama3-8b/sft/config_qlora.yaml<br>
 # Step 2 - DPO
 ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_configs/multi_gpu.yaml --num_processes=4 scripts/run_dpo.py recipes/llama3-8b/dpo/config_qlora.yaml
-```
-
-Please note that the number of arguments `num_processes` should be the number of your available GPUs. We use the the default `num_processes=4`.
-
-### Full fine-tuning example
-
+</pre>
+Please note that the number of arguments num_processes should be the number of your available GPUs. We use the the default num_processes=4.
+</details>
+<details>
+<summary>Full fine-tuning example</summary>
+<br>
 You can fine-tune the whole model using the following scripts.
-
-```bash
+<br>
+<br>
+<pre lang="bash">
 # Step 1 - SFT
-ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_configs/multi_gpu.yaml scripts/run_sft.py recipes/llama3-8b/sft/config_full.yaml
-
+ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_configs/multi_gpu.yaml scripts/run_sft.py recipes/llama3-8b/sft/config_full.yaml<br>
 # Step 2 - DPO
 ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_configs/multi_gpu.yaml scripts/run_dpo.py recipes/llama3-8b/dpo/config_full.yaml
-```
-
-In case you have limited GPU resources but still want to do the full fine-tuing, please consider using DeepSpeed ZeRO3. By adding `config_file` argument, you are good to go!
-
-```bash
+</pre>
+In case you have limited GPU resources but still want to do the full fine-tuing, please consider using DeepSpeed ZeRO3. By adding <code>config_file</code> argument, you are good to go!
+<br>
+<br>
+<pre lang="bash">
 # Step 1 - SFT
-ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_configs/deepspeed_zero3.yaml scripts/run_sft.py recipes/llama3-8b/sft/config_full.yaml
-
+ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_configs/deepspeed_zero3.yaml scripts/run_sft.py recipes/llama3-8b/sft/config_full.yaml<br>
 # Step 2 - DPO
 ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_configs/deepspeed_zero3.yaml scripts/run_dpo.py recipes/llama3-8b/dpo/config_full.yaml
-```
+</pre>
+</details>
 
-## Inference Example
+## 🌟 Inference
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1PeUnv89Ao2uHRYYzZVOlUwoBUdYKFbLS?usp=sharing)
 
@@ -201,24 +225,27 @@ print(tokenizer.decode(outputs[0]))
 ก่อนอื่นเราต้องรู้ความหมายของคำทั้งสอง คำว่า ลิเก เป็นศิลปะการแสดงแบบดั้งเดิมในประเทศไทย ส่วนคำว่า งิ้วน่าจะเป็นการนำภาษาไทยมาแปลจากคำว่า อินโดปีเลีย (indoplea) ซึ่งเป็นชื่อเรียกดนตรีที่มีต้นกำเนิดจากรัฐอุตตาร์ประเทศ ในอินเดีย และได้แพร่หลายไปยังเอเชียตะวันออกเฉียงใต้ โดยเฉพาะสาธารณรัฐประชาชนจีนและเวียดนาม จึงทำให้เกิดคำว่า งิ้วด้วย แต่ทุกคนไม่รู้ว่ามันก็คืออะไรจริง ๆ แล้ว มันมีความแตกต่างกันมาก เพราะถ้าไปถามชาวบ้านบางแห่งอาจจะบอกว่าเป็นอีกประเภทหนึ่งของเพลงโบราณหรือเพลงพื้นเมือง หรือถ้าพูดตามหลักทางประวัติศาสตร์ก็จะกล่าวว่านั่นคือ การขับร้องเพลงที่ใช้รูปแบบการประสานเสียงแบบฮินดู-ซิกห์วัล ที่ผสมผสานระหว่างภาษาอังกฤษ ภาษาจีนกลาง ภาษาพม่า และภาษาทางเหนือกับภาษาลาว รวมถึงภาษากลุ่มออสเตรโลไนว์ในอดีต ดังนั้นตอนนี้คุณสามารถสรุปได้อย่างแม่นยำว่าสองอย่างเหล่านี้แตกต่างกันอย่างไร: ลิเก คือ ศิลปะการแสดงที่มีมายาวนานกว่า 100 ปีในประเทศไทย เช่น ลิเกล้านนา, ลิเกตลุง, ลิเกล้อ ฯลฯ ขณะที่ งิ้ว หมายถึง เพลงประสานเสียงที่มีรากเหง้าของวงการเพลงคลาสสิคในอินเดีย และแพร่กระจายในเอเชียตะวันตกเฉียงใต้เป็นสิ่งแรกๆ หลังจากการเผยแผ่ศาสนายุคแรกๆ นอกจากนี้ ยังมีการรวมแนวเพลงเพื่อรวมเข้ากับการเต้นร่วมสมัยและบทละครที่มีอิทธิพลจากวรรณกรรมจีน<|end_of_text|></pre>
 </details>
 
-## Deployment
+## 🚀 Deployment
 
-Coming Soon.
+See [Deployments.md](./deployment/Deployments.md) for details on deploying pre-trained Large Language Models (LLMs) using Text Generation Inference (TGI), LocalAI, and Ollama frameworks.
 
-## Acknowledgements
+## ✨ Retrieval Augmented Generation (RAG)
+
+See [RAG.md](./deployment/RAG.md) for details on setting up a Retrieval Augmented Generation system using Flowise, LocalAI, and Ollama frameworks for enhancing language model generation with retrieved knowledge.
+
+## 🙏 Acknowledgements
 
 We would like to thank all codes and structures from [alignment-handbook](https://github.com/huggingface/alignment-handbook).
 This project is sponsored by VISTEC, PTT, SCBX, and SCB.
 
-## Future Plans
+## 📅 Future Plans
 
 Here are some future plans and what we are doing:
 
 - Adding model and codes for ORPO. Currently, we have codes and preliminary models from the ORPO technique. We are planning to release them soon.
 - Thai LLMs benchmark. We are planning to create a machine reading comprehension leaderboard for Thai LLMs. We are happy for any ideas or contributions from everyone.
-- Deployment. We are planning to release codes for RAG and ChatBot. This will help Thai NLP engineers and researchers use and deploy LLMs in their works.
 
-## Citation
+## 📜 Citation
 
 If you use WangchanX or WangchanX Eval in your project or publication, please cite the library as follows
 

@@ -1,0 +1,2 @@
+FROM ghcr.io/huggingface/text-generation-inference:2.0
+COPY ./LLaMa3-8b-WangchanX-sft-Demo/ /data/LLaMa3-8b-WangchanX-sft-Demo
