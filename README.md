@@ -1,3 +1,5 @@
+<img src="https://github.com/vistec-AI/vistec-ai.github.io/blob/main/wangchanx_logo_color.png?raw=true" width="250">
+
 # WangchanX Fine-tuning Pipeline
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![Python 3.10.12](https://img.shields.io/static/v1?label=Python&message=3.10.12&color=blue&logo=python&logoColor=white)
