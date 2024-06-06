@@ -1,6 +1,6 @@
 name: LLaMa3-8b-WangchanX-sft-Demo
 backend: vllm
 parameters:
-  model: /build/models/LLaMa3-8b-WangchanX-sft-Demo
+  model: Rasu23/test_llama3_chk10000
 template:
   use_tokenizer_template: true

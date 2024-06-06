@@ -1,0 +1,5 @@
+name: bge-m3
+backend: sentencetransformers
+embeddings: true
+parameters:
+  model: BAAI/bge-m3

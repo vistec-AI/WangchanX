@@ -108,7 +108,6 @@ LocalAI is a free, open-source OpenAI alternative. It provides a drop-in REST AP
 
 ```Dockerfile
 FROM localai/localai:latest-aio-gpu-nvidia-cuda-12
-COPY LLaMa3-8b-WangchanX-sft-Demo  /build/models/LLaMa3-8b-WangchanX-sft-Demo
 COPY LLaMa3-8b-WangchanX-sft-Demo.yaml /build/models
 ```
 

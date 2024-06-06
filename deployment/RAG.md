@@ -23,22 +23,16 @@ Flowise is an open source low-code tool for developers to build customized LLM o
 docker network create --driver bridge retrieval-augmented-generation
 ```
 
-<h4>Step 2: Prepare the Embeddings service.</h4>
+<h4>Step 2: Prepare the Embeddings and LLM service.</h4>
 
-Prepare the embeddings model YAML file at the current working directory. This file can be found in the `deployment/LocalAI` which is `paraphrase-multilingual-mpnet-base-v2.yaml` and run the following command for create service
-
-```bash
-docker build -t localai -f deployment/LocalAi/Dockerfile.LocalAi.Embeddings .
-docker run -d -it --network retrieval-augmented-generation --gpus '"device=0"' -p 8888:8080 --name localai-service localai #To select device 0 for GPU, if you have more than one, you can use only the CPU by leaving the 'gpus' flag blank.
-```
-
-<h4>Step 3: Prepare LLM service.</h4>
+Prepare the embeddings and model YAML file at the current working directory. These file can be found in the `deployment/LocalAI` which is `bge-m3.yaml` and `LLaMa3-8b-WangchanX-sft-Demo.yaml`. Then run the following command for create service
 
 ```bash
-docker run -d -it --network retrieval-augmented-generation --gpus '"device=1"' -p 11434:11434 --name ollama-service ollama/ollama
+docker build -t localai -f deployment/LocalAi/Dockerfile.LocalAi .
+docker run -d -it --network retrieval-augmented-generation --gpus '"device=0"' -p 8888:8080 --name localai-service localai
 ```
 
-<h4>Step 4: Create Flowise service.</h4>
+<h4>Step 3: Create Flowise service.</h4>
 
 ```bash
 docker run -d -it --network retrieval-augmented-generation --name flowise-service -e PORT=4000 -e FLOWISE_USERNAME=admin -e FLOWISE_PASSWORD=admin -p 4000:4000 elestio/flowiseai

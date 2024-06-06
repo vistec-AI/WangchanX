@@ -1,2 +1,2 @@
 FROM localai/localai:latest-aio-gpu-nvidia-cuda-12
-COPY paraphrase-multilingual-mpnet-base-v2.yaml  /build/models/
+COPY bge-m3.yaml  /build/models/
