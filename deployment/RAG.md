@@ -29,10 +29,38 @@ Prepare the embeddings and model YAML file at the current working directory. The
 
 ```bash
 docker build -t localai -f deployment/LocalAi/Dockerfile.LocalAi .
-docker run -d -it --network retrieval-augmented-generation --gpus '"device=0"' -p 8888:8080 --name localai-service localai
+docker run -d -it --network retrieval-augmented-generation --gpus '"device=0"' -p 8080:8080 --name localai-service localai
 ```
 
-<h4>Step 3: Create Flowise service.</h4>
+<h4>Step 3: Prepare Retriever service.</h4>
+
+Run the following command for create service
+
+```bash
+ docker run -d --network retrieval-augmented-generation --name chroma-db -p 8000:8000 chromadb/chroma
+```
+
+Run `upload.py` that can find in `Chroma/upload.py` for upload embeddings documents to retriever db
+
+```bash
+python upload.py
+```
+
+<h4>Step 4: Prepare Analyze Chatflow service.</h4>
+
+Run the following command for create chatflow database service
+
+```bash
+docker run -d --name langfuse-db --network retrieval-augmented-generation -p 5432:5432 -e POSTGRES_USER=langfuse -e POSTGRES_PASSWORD=WangchanX -e POSTGRES_DB=postgres postgres:14
+```
+
+Run the following command for create chatflow service
+
+```bash
+docker run -it --network retrieval-augmented-generation -e DATABASE_HOST=langfuse-db -e DATABASE_USERNAME=langfuse -e DATABASE_PASSWORD=WangchanX -e DATABASE_NAME=postgres -e NEXTAUTH_URL=http://localhost:3000 -e NEXTAUTH_SECRET=mysecret -e SALT=mysalt -p 3000:3000 -d --name langfuse-service langfuse/langfuse
+```
+
+<h4>Step 5: Create Flowise service.</h4>
 
 ```bash
 docker run -d -it --network retrieval-augmented-generation --name flowise-service -e PORT=4000 -e FLOWISE_USERNAME=admin -e FLOWISE_PASSWORD=admin -p 4000:4000 elestio/flowiseai

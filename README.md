@@ -47,7 +47,7 @@ The models that trained on small instruction datasets
 
 ### Full models
 
-The models that trained on large instruction datasets (>400 GB of data). For reproducibility, we provide the scripts for dataset collection and preprocessing in [this repository](https://github.com/vistec-AI/WangchanX/tree/datasets).
+The models that trained on large instruction datasets. For reproducibility, we provide the scripts for dataset collection and preprocessing in [this repository](https://github.com/vistec-AI/WangchanX/tree/datasets).
 
 - [LLaMa3-8b-WangchanX-sft]() (Release soon)
 - [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)

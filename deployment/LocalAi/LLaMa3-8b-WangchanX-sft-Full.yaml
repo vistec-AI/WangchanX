@@ -1,0 +1,6 @@
+name: LLaMa3-8b-WangchanX-sft-Full
+backend: vllm
+parameters:
+  model: airesearch/LLaMa3-8b-WangchanX-sft-Full
+template:
+  use_tokenizer_template: true
