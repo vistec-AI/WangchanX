@@ -1,4 +1,16 @@
 {
+  "WangchanThaiInstruct": {
+    "template": "WangchanThaiInstruct_7_24",
+    "source": {
+      "path": "airesearch/WangchanThaiInstruct_7.24"
+    },
+    "task": "text-generation",
+    "license": "cc-by-sa-4.0",
+    "domain": "mixed",
+    "processor": "WangchanThaiInstruct",
+    "num_examples": "all",
+    "file_format": "huggingface"
+  },
   "ultrachat": {
     "template": null,
     "source": { "path": "HuggingFaceH4/ultrachat_200k", "split": "train_sft" },

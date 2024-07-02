@@ -162,6 +162,7 @@ class DatasetManager:
     def save_datasets(self) -> None:
         """Save the datasets."""
         self._datasets = self.concat_dataset()
+        self._datasets = DatasetDict({"train": self._datasets})
         if self._save_format == "json" or self._save_format == "jsonl":
             self._datasets.to_json(self._save_dir)
         elif self._save_format == "csv":

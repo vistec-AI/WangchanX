@@ -1077,5 +1077,22 @@
       "input": "เนื้อหาบทความ: {context}\n\nQuestion: จากเนื้อหาบทความ คำถามคือ '{question}'",
       "output": "{answers}"
     }
+  ],
+  "WangchanThaiInstruct_7_24": [
+    {
+      "instruction": "Instruction: {Instruction}",
+      "input": "Input: {Input}",
+      "output": "{Output}"
+    },
+    {
+      "instruction": "{Instruction}",
+      "input": "{Input}",
+      "output": "{Output}"
+    },
+    {
+      "instruction": "{Input}\n\n{Instruction}",
+      "input": "",
+      "output": "{Output}"
+    }
   ]
 }

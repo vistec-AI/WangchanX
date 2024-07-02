@@ -14,6 +14,21 @@ SENTIMENT_MAPPINGS = [
 
 
 @rich.repr.auto
+class WangchanThaiInstruct(TextStrategy):
+    def convert_empty_input(self, examples):
+        examples["Input"] = "" if examples["Input"] is None else examples["Input"]
+        return examples
+
+    def clean(self):
+        dataset = (
+            self.dropna(columns=["Output"])
+            .drop_duplicates(columns=["Output"])
+            .map(self.convert_empty_input, num_proc=self.num_proc)
+        )
+        return dataset
+
+
+@rich.repr.auto
 class Xp3x(TextStrategy):
     def clean(self):
         dataset = self.dropna(columns=["inputs"]).drop_duplicates(columns=["inputs"])
@@ -189,7 +204,12 @@ class ThaiUSEmbassy(TextStrategy):
 
 @rich.repr.auto
 class ThaiSentimentAnalysis(SentimentStrategy, TextStrategy):
-    def __init__(self, dataset: Dataset, feelings: List[dict] = SENTIMENT_MAPPINGS, num_proc: int = 1):
+    def __init__(
+        self,
+        dataset: Dataset,
+        feelings: List[dict] = SENTIMENT_MAPPINGS,
+        num_proc: int = 1,
+    ):
         super().__init__(dataset, feelings, num_proc)
 
     def normalize_answer(self, example):
