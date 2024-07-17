@@ -12,7 +12,7 @@ The repository consists of three training scripts: (i) supervised fine-tuning (S
 
 - [Supported base LLMs](#-supported-base-llms)
 - [Released Models](#-released-models)
-- [Evaluation (0-shot)](#-evaluation-0-shot)
+- [Evaluation](#-evaluation)
 - [Installation](#-installation)
 - [Prepare Dataset (Optional)](#-prepare-dataset-optional)
 - [Fine-tuning](#-fine-tuning)
@@ -49,20 +49,21 @@ The models that trained on small instruction datasets
 
 The models that trained on large instruction datasets. For reproducibility, we provide the scripts for dataset collection and preprocessing in [this repository](https://github.com/vistec-AI/WangchanX/tree/datasets).
 
-- [LLaMa3-8b-WangchanX-sft]() (Release soon)
+- [LLaMa3-8b-WangchanX-sft](https://huggingface.co/airesearch/LLaMa3-8b-WangchanX-sft-Full)
 - [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)
 - [PolyLM-WangchanX-sft]() (Release soon)
 
-## ⚡ Evaluation (0-shot)
+## ⚡ Evaluation
 
-We evaluate each LLM in terms of (i) Correctness Q1 (higher is better), (ii) Helpfulness Q2 (higher is better), (iii) Irrelevancy Q3 (lower is better), and (iv) Out-of-Context Q4 (lower is better). In addition, we use 100 questions from XQuAD. Please visit [WangchanX-Eval](https://github.com/vistec-AI/WangchanX-Eval) for more details about evaluation and benchmarking Thai LLMs.
+We evaluate LLMs using the Benchmark Suite for Southeast Asian Languages. For detailed information on our evaluation methodology and benchmarking process, visit the [SEACrowd](https://github.com/SEACrowd/seacrowd-experiments) project repository.
 
-| Model                                                                                            | Q1     | Q2     | Q3     | Q4    |
-| ------------------------------------------------------------------------------------------------ | ------ | ------ | ------ | ----- |
-| [LLaMa3-8b-WangchanX-sft-Demo](https://huggingface.co/airesearch/LLaMa3-8b-WangchanX-sft-Demo)   | **92** | **23** | **14** | 4     |
-| [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)                     | 68     | 5      | 19     | 4     |
-| [typhoon-7b-WangchanX-sft-Demo](https://huggingface.co/airesearch/typhoon-7b-WangchanX-sft-Demo) | 83     | 17     | **14** | 6     |
-| [PolyLM-13b-WangchanX-sft-Demo](https://huggingface.co/airesearch/PolyLM-13b-WangchanX-sft-Demo) | 76     | 16     | 18     | **2** |
+### NLU
+
+![weighted_f1_score](./deployment/img/weighted_f1_score.svg)
+
+### NLG
+
+![nlg_evaluation](./deployment/img/nlg_evaluation.svg)
 
 ## 📦 Installation
 
@@ -125,9 +126,9 @@ The simplest way to start fine-tuning your LLM is to use plain Python on a <stro
 <br>
 <br>
 <pre lang="bash">
-#Step 1 - SFT
+# Step 1 - SFT
 python scripts/run_sft.py recipes/llama3-8b/sft/config_qlora.yaml<br>
-#Step 2 - DPO (optional)
+# Step 2 - DPO (optional)
 python scripts/run_dpo.py recipes/llama3-8b/dpo/config_qlora.yaml
 
 </pre>
@@ -169,14 +170,14 @@ ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_con
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1PeUnv89Ao2uHRYYzZVOlUwoBUdYKFbLS?usp=sharing)
 
-### Prepare your model and tokenizer:
+### Prepare your model and tokenizer
 
 ```python
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 # Model path
-path = "airesearch/LLaMa3-8b-WangchanX-sft-Demo"
+path = "airesearch/LLaMa3-8b-WangchanX-sft-Full"
 
 # Device
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -186,7 +187,7 @@ tokenizer = AutoTokenizer.from_pretrained(path, use_fast=False)
 model = AutoModelForCausalLM.from_pretrained(path, device_map="auto")
 ```
 
-### Define chat messages:
+### Define chat messages
 
 ```python
 messages = [
@@ -194,7 +195,7 @@ messages = [
 ]
 ```
 
-### Tokenize chat messages:
+### Tokenize chat messages
 
 ```python
 tokenized_chat = tokenizer.apply_chat_template(messages, tokenize=True, add_generation_prompt=True, return_tensors="pt").to(device)
@@ -210,7 +211,7 @@ print(tokenizer.decode(tokenized_chat[0]))
 <|assistant|></pre>
 </details>
 
-### Generate responses:
+### Generate responses
 
 ```python
 outputs = model.generate(tokenized_chat, max_length=2048)
