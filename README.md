@@ -51,7 +51,6 @@ The models that trained on large instruction datasets. For reproducibility, we p
 
 - [LLaMa3-8b-WangchanX-sft](https://huggingface.co/airesearch/LLaMa3-8b-WangchanX-sft-Full)
 - [SeaLion-7b-WangchanX-sft](https://huggingface.co/airesearch/WangchanLion7B)
-- [PolyLM-WangchanX-sft]() (Release soon)
 
 ## ⚡ Evaluation
 
@@ -59,7 +58,17 @@ We evaluate LLMs using the Benchmark Suite for Southeast Asian Languages. For de
 
 ### NLU
 
+#### Weighted F1 Score (Overall)
+
 ![weighted_f1_score](./deployment/img/weighted_f1_score.svg)
+
+#### Weighted F1 Score (By Region)
+
+![weighted_f1_by_region](./deployment/img/weighted_f1_by_region.svg)
+
+#### Weighted F1 Score (By Task)
+
+![weighted_f1_by_task](./deployment/img/weighted_f1_by_task.svg)
 
 ### NLG
 
@@ -83,6 +92,8 @@ pip3 install flash-attn --no-build-isolation
 
 ## 📋 Prepare Dataset (Optional)
 
+### Using a Custom Demo Dataset
+
 1. If you want to use a custom dataset, you need to reformat the file by editing it.
 
 ```bash
@@ -99,6 +110,42 @@ This dataset includes 6 datasets:
 - [math_14k](https://github.com/AGI-Edgerunners/LLM-Adapters/blob/main/ft-training_set/math_14k.json)
 - math_14k (translated English to Thai by Gemini)
 - [iapp_wiki_qa_squad](https://huggingface.co/datasets/iapp_wiki_qa_squad)
+
+### Using the Full Dataset
+
+1. Creating the Dataset:
+
+   - Go to the create dataset [script](https://github.com/vistec-AI/WangchanX/tree/datasets) page.
+   - Download the script provided there.
+   - Run the following command in your terminal:
+
+     ```bash
+     python main.py --output_dir ./flan_dataset
+     ```
+
+     This will create the full dataset in a directory called `flan_dataset`.
+
+2. Updating the Configuration:
+
+   - Find the configuration file for your specific model and training mode.
+   - The file will be located at: `recipes/<model_name>/<mode>/config_<method>.yaml`
+   - For example, if you're using the LLaMA3-8b model for supervised fine-tuning (sft), the file would be:
+     `recipe/llama3-8b/sft/config_full.yaml`
+   - Open this file and update the `dataset_mixer` section to point to your newly created dataset:
+
+     ```yaml
+     # Data training arguments
+     chat_template: "{% for message in messages %}\n{% if message['role'] == 'user' %}\n{{ '<|user|>\n' + message['content'] + eos_token }}\n{% elif message['role'] == 'system' %}\n{{ '<|system|>\n' + message['content'] + eos_token }}\n{% elif message['role'] == 'assistant' %}\n{{ '<|assistant|>\n'  + message['content'] + eos_token }}\n{% endif %}\n{% if loop.last and add_generation_prompt %}\n{{ '<|assistant|>' }}\n{% endif %}\n{% endfor %}"
+     dataset_mixer:
+       ./flan_dataset: 1.0 # <- This is the path to your newly created dataset
+     dataset_splits:
+       - train
+     preprocessing_num_workers: 12
+     ```
+
+   The key change is in the `dataset_mixer` section, where `./flan_dataset` should be the path to your created dataset.
+
+By following these steps, you'll have prepared the full dataset and updated your configuration file to use it for training your model.
 
 ## 🛠 Fine-tuning
 
