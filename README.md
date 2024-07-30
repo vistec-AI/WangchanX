@@ -58,17 +58,7 @@ We evaluate LLMs using the Benchmark Suite for Southeast Asian Languages. For de
 
 ### NLU
 
-#### Weighted F1 Score (Overall)
-
 ![weighted_f1_score](./deployment/img/weighted_f1_score.svg)
-
-#### Weighted F1 Score (By Region)
-
-![weighted_f1_by_region](./deployment/img/weighted_f1_by_region.svg)
-
-#### Weighted F1 Score (By Task)
-
-![weighted_f1_by_task](./deployment/img/weighted_f1_by_task.svg)
 
 ### NLG
 
@@ -120,7 +110,7 @@ This dataset includes 6 datasets:
    - Run the following command in your terminal:
 
      ```bash
-     python main.py --output_dir ./flan_dataset
+     python main.py --output_dir /<path>/flan_dataset
      ```
 
      This will create the full dataset in a directory called `flan_dataset`.
@@ -137,13 +127,13 @@ This dataset includes 6 datasets:
      # Data training arguments
      chat_template: "{% for message in messages %}\n{% if message['role'] == 'user' %}\n{{ '<|user|>\n' + message['content'] + eos_token }}\n{% elif message['role'] == 'system' %}\n{{ '<|system|>\n' + message['content'] + eos_token }}\n{% elif message['role'] == 'assistant' %}\n{{ '<|assistant|>\n'  + message['content'] + eos_token }}\n{% endif %}\n{% if loop.last and add_generation_prompt %}\n{{ '<|assistant|>' }}\n{% endif %}\n{% endfor %}"
      dataset_mixer:
-       ./flan_dataset: 1.0 # <- This is the path to your newly created dataset
+       /<path>/flan_dataset: 1.0 # <- This is the path to your newly created dataset
      dataset_splits:
        - train
      preprocessing_num_workers: 12
      ```
 
-   The key change is in the `dataset_mixer` section, where `./flan_dataset` should be the path to your created dataset.
+   The key change is in the `dataset_mixer` section, where `/<path>/flan_dataset` should be the path to your created dataset.
 
 By following these steps, you'll have prepared the full dataset and updated your configuration file to use it for training your model.
 
