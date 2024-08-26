@@ -15,7 +15,7 @@ preprocessing_num_workers: 8
 # ORPOTrainer arguments
 bf16: true
 beta: 0.05
-gradient_accumulation_steps: 1
+gradient_accumulation_steps: 4
 gradient_checkpointing: true
 gradient_checkpointing_kwargs:
   use_reentrant: true
@@ -24,11 +24,12 @@ log_level: info
 logging_steps: 10
 lr_scheduler_type: inverse_sqrt
 max_length: 2048
-max_prompt_length: 1792
-num_train_epochs: 1
+max_prompt_length: 1200
+num_train_epochs: 5
 optim: adamw_bnb_8bit
-output_dir: data/llama3-8b-orpo-full
-per_device_train_batch_size: 1
+output_dir: data/llama3-8b-orpo-full1
+per_device_train_batch_size: 2
+per_device_eval_batch_size: 2
 report_to:
 - none
 save_strategy: "no"
