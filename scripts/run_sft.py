@@ -20,27 +20,20 @@ Supervised fine-tuning script for decoder language models.
 import logging
 import random
 import sys
+
 sys.path.append(".")
 import os
+
 import datasets
 import torch
 import transformers
 from transformers import AutoModelForCausalLM, set_seed
-# os.environ["CUDA_VISIBLE_DEVICES"]="0"
-from alignment import (
-    DataArguments,
-    H4ArgumentParser,
-    ModelArguments,
-    SFTConfig,
-    apply_chat_template,
-    get_checkpoint,
-    get_datasets,
-    get_kbit_device_map,
-    get_peft_config,
-    get_quantization_config,
-    get_tokenizer,
-)
 from trl import SFTTrainer, setup_chat_format
+
+from alignment import (DataArguments, H4ArgumentParser, ModelArguments,
+                       SFTConfig, apply_chat_template, get_checkpoint,
+                       get_datasets, get_kbit_device_map, get_peft_config,
+                       get_quantization_config, get_tokenizer)
 
 logger = logging.getLogger(__name__)
 
@@ -76,7 +69,7 @@ def main():
     logger.info(f"Data parameters {data_args}")
     logger.info(f"Training/evaluation parameters {training_args}")
 
-    #training_args.do_eval = False
+    # training_args.do_eval = False
     # Check for last checkpoint
     last_checkpoint = get_checkpoint(training_args)
     if last_checkpoint is not None and training_args.resume_from_checkpoint is None:
@@ -89,7 +82,14 @@ def main():
         data_args,
         splits=data_args.dataset_splits,
         configs=data_args.dataset_configs,
-        columns_to_keep=["messages", "chosen", "rejected", "prompt", "completion", "label"],
+        columns_to_keep=[
+            "messages",
+            "chosen",
+            "rejected",
+            "prompt",
+            "completion",
+            "label",
+        ],
     )
     logger.info(
         f"Training on the following datasets and their proportions: {[split + ' : ' + str(dset.num_rows) for split, dset in raw_datasets.items()]}"
@@ -106,9 +106,11 @@ def main():
     #######################
     logger.info("*** Load pretrained model ***")
     torch_dtype = (
-        model_args.torch_dtype if model_args.torch_dtype in ["auto", None] else getattr(torch, model_args.torch_dtype)
+        model_args.torch_dtype
+        if model_args.torch_dtype in ["auto", None]
+        else getattr(torch, model_args.torch_dtype)
     )
-    
+
     quantization_config = get_quantization_config(model_args)
 
     model_kwargs = dict(
@@ -123,8 +125,13 @@ def main():
 
     model = model_args.model_name_or_path
     # For ChatML we need to add special tokens and resize the embedding layer
-    if "<|im_start|>" in tokenizer.chat_template and "gemma-tokenizer-chatml" not in tokenizer.name_or_path:
-        model = AutoModelForCausalLM.from_pretrained(model_args.model_name_or_path, **model_kwargs)
+    if (
+        "<|im_start|>" in tokenizer.chat_template
+        and "gemma-tokenizer-chatml" not in tokenizer.name_or_path
+    ):
+        model = AutoModelForCausalLM.from_pretrained(
+            model_args.model_name_or_path, **model_kwargs
+        )
         model, tokenizer = setup_chat_format(model, tokenizer)
         model_kwargs = None
 
@@ -142,16 +149,24 @@ def main():
         remove_columns=column_names,
         desc="Applying chat template",
     )
-    raw_datasets = raw_datasets.filter(lambda x: len(tokenizer(x["text"], add_special_tokens=False)["input_ids"]) < training_args.max_seq_length, num_proc=8)
+    raw_datasets = raw_datasets.filter(
+        lambda x: len(tokenizer(x["text"], add_special_tokens=False)["input_ids"])
+        < training_args.max_seq_length,
+        num_proc=8,
+    )
 
     train_dataset = raw_datasets["train"]
-    
+
     if training_args.do_eval:
         eval_dataset = raw_datasets["test"]
 
-    with training_args.main_process_first(desc="Log a few random samples from the processed training set"):
+    with training_args.main_process_first(
+        desc="Log a few random samples from the processed training set"
+    ):
         for index in random.sample(range(len(raw_datasets["train"])), 3):
-            logger.info(f"Sample {index} of the processed training set:\n\n{raw_datasets['train'][index]['text']}")
+            logger.info(
+                f"Sample {index} of the processed training set:\n\n{raw_datasets['train'][index]['text']}"
+            )
 
     ########################
     # Initialize the Trainer
@@ -162,7 +177,7 @@ def main():
         model_init_kwargs=model_kwargs,
         args=training_args,
         train_dataset=train_dataset,
-        eval_dataset= eval_dataset if training_args.do_eval else None,
+        eval_dataset=eval_dataset if training_args.do_eval else None,
         dataset_text_field="text",
         max_seq_length=training_args.max_seq_length,
         tokenizer=tokenizer,

@@ -221,6 +221,10 @@ class DataArguments:
     truncation_side: Optional[str] = field(
         default=None, metadata={"help": "Truncation side to use for the tokenizer."}
     )
+    tokenizer_padding_side: Optional[str] = field(
+        default="left",
+        metadata={"help": "Padding side to use for the tokenizer. Defaults to 'left'."},
+    )
     auto_insert_empty_system_msg: bool = field(
         default=True,
         metadata={
