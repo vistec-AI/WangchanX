@@ -1,16 +1,18 @@
-from typing import Union, Set, List, Tuple, Any
-from datasets import Dataset, DatasetDict
-from numpy import concatenate
-from data_processor import *
-from data_formatter.formatter import DataGenerator
-from data_downloader import *
-from datasets import concatenate_datasets
-from rich.pretty import pprint
-from parallel_pandas import ParallelPandas
-from functools import partial
-import pandas as pd
-from tabulate import tabulate
 import random
+from random import Random
+from functools import partial
+from typing import Any, List, Set, Tuple, Union
+
+import pandas as pd
+from datasets import Dataset, DatasetDict, concatenate_datasets
+from numpy import concatenate
+from parallel_pandas import ParallelPandas
+from rich.pretty import pprint
+from tabulate import tabulate
+
+from data_downloader import *
+from data_formatter.formatter import DataGenerator
+from data_processor import *
 
 
 class DatasetManager:
@@ -88,9 +90,23 @@ class DatasetManager:
 
     def reformat(self, name):
         """Reformat a dataset."""
+        template = self._dataset_metadata[name]["template"]
+        datasets = self._dataset_metadata[name]["datasets"]
+        source = self._dataset_metadata[name]["source"]["path"]
+        task = self._dataset_metadata[name]["task"]
+        license = self._dataset_metadata[name]["license"]
+        license_str = ", ".join(license) if type(license) == list else license
+        domain = self._dataset_metadata[name]["domain"]
+        metadata = {
+            "source": source,
+            "task": task,
+            "license": license_str,
+            "domain": domain,
+        }
         reformatted_dataset = self._data_generator.reformat(
-            self._dataset_metadata[name]["datasets"],
-            self._dataset_metadata[name]["template"],
+            datasets,
+            template,
+            metadata=metadata,
         )
         self._dataset_metadata[name]["datasets"] = reformatted_dataset
 
@@ -174,5 +190,5 @@ class DatasetManager:
 
     def get_examples(self, name):
         dataset = self._dataset_metadata[name]["datasets"]
-        random_ids = random.Random(42).sample(range(len(dataset)), 2)
+        random_ids = Random(42).sample(range(len(dataset)), 2)
         return dataset.select(random_ids)["messages"]

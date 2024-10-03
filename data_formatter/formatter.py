@@ -1,7 +1,7 @@
 import numpy.random as random
+import rich.repr
 from datasets import Dataset, DatasetDict
 from tqdm import tqdm
-import rich.repr
 
 
 @rich.repr.auto
@@ -36,9 +36,14 @@ class DataGenerator:
             data = self.format_conversation(data)
             yield data
 
-    def reformat(self, dataset: DatasetDict | Dataset, pattern_name: str | None = None):
+    def reformat(
+        self,
+        dataset: DatasetDict | Dataset,
+        pattern_name: str | None = None,
+        metadata: dict = {},
+    ):
         if pattern_name is None:
-            return dataset
+            return dataset.map(lambda x: _add_metadata(x, **metadata))
         else:
             datas = []
             if isinstance(dataset, Dataset):
@@ -54,4 +59,12 @@ class DataGenerator:
                         datas.extend(generator)
             else:
                 raise TypeError("dataset_dict must be a Dataset or a DatasetDict")
-            return Dataset.from_list(datas)
+            return Dataset.from_list(datas).map(lambda x: _add_metadata(x, **metadata))
+
+
+def _add_metadata(examples, source: str, task: str, domain: str, license: str):
+    examples["source"] = source
+    examples["task"] = task
+    examples["domain"] = domain
+    examples["license"] = license
+    return examples
