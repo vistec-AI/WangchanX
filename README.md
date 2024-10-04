@@ -32,6 +32,7 @@ Here is the list of supported base LLMs that we have tested on our scripts.
 - PolyLM
 - Typhoon
 - SEA-LION (Please refer to GitHub: [vistec-AI/WangchanLion](https://github.com/vistec-AI/WangchanLion) for the full detail)
+- Gemma 2
 
 ## 🤖 Released Models
 
